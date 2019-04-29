@@ -8,6 +8,11 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ProductComponent } from './product/product.component';
 import { SignupComponent } from './signup/signup.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import { ProductDetailComponent } from './product/product-detail/product-detail.component';
+import { ProductCompareComponent } from './product/product-compare/product-compare.component';
+import { AppRoutingModule } from './routing.module';
+
 
 import { ProductHttpService } from './services/product-http.service';
 import { AuthenticationService } from './services/authentication.service';
@@ -19,7 +24,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     LoginComponent,
     ProductComponent,
-    SignupComponent
+    SignupComponent,
+    ProductDetailComponent,
+    ProductCompareComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, AppRoutingModule, ReactiveFormsModule
