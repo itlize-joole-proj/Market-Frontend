@@ -1,9 +1,12 @@
+/* Wei Chen  4.29 */
 import {Component, Injectable, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 // import custom validator to validate that password and confirm password fields match
 import {MustMatch} from './mustMatch.service';
 import {HttpClient} from '@angular/common/http';
+import {AuthenticationService} from '../services/authentication.service';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-signup',
@@ -16,14 +19,15 @@ export class SignupComponent implements OnInit {
   private registerForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private userHttpService: AuthenticationService) {
   }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', Validators.required],
+      email: ['', Validators.required],
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
     }, {
@@ -32,25 +36,31 @@ export class SignupComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() {
+  f() {
     return this.registerForm.controls;
   }
 
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
     if (this.registerForm.invalid) {
       return;
     }
 
     alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value));
 
-    // if valid go http request
-    this.http.post('/register', this.registerForm.value)
-      .subscribe((response) => {
-        console.log('response ', response);
-      });
+    // this.http.post('/register', this.registerForm.value)
+    //   .subscribe((response) => {
+    //     console.log('response ', response);
+    //   });
+
+    /* call restful API */
+    this.userHttpService.register(
+      this.f().username.value,
+      this.f().password.value,
+      this.f().email.value,
+      this.f().firstname.value,
+      this.f().lastname.value).pipe(first()).subscribe();
   }
 }
 

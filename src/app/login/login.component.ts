@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../services/authentication.service';
-import { Buyer } from '../models/buyer.model';
-import { ReactiveFormsModule, FormBuilder } from '@angular/forms'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { first } from 'rxjs/operators';
+import {Component, OnInit} from '@angular/core';
+import {AuthenticationService} from '../services/authentication.service';
+import {Buyer} from '../models/buyer.model';
+import {ReactiveFormsModule, FormBuilder} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
   messageClass: string;
 
   constructor(private userHttpService: AuthenticationService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder) {
+  }
 
   ngOnInit() {
     this.userHttpService.userHttpInfo();
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
-    })
+    });
   }
 
   disableForm() {
@@ -58,16 +59,16 @@ export class LoginComponent implements OnInit {
     this.userHttpService.login(this.f().username.value, this.f().password.value)
       .pipe(first())
       .subscribe(
-        data=>{
+        data => {
           // console.log(data);
-          console.log(localStorage.getItem('currentUser'))
+          console.log(localStorage.getItem('currentUser'));
         },
-        error=>{
-          console.log(error)
+        error => {
+          console.log(error);
           this.processing = false;
           this.enableForm();
         }
-      )
+      );
   }
 
   logout() {
