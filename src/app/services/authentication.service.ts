@@ -56,6 +56,9 @@ export class AuthenticationService implements OnInit {
     const options = {
       headers: httpHeaders
     };
+
+    // use observable, options: instance of Observable that can be later subscribed/updated
+    // another way is to use Promise https://www.concretepage.com/angular-2/angular-2-http-post-example
     return this.http.post<any>('http://localhost:8080/MarketApp/register', JSON.stringify(buyer), options)
       .pipe(map(user => {
         if (user && user.token) {
