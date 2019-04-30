@@ -1,5 +1,5 @@
-<h2>Login</h2>
-<form [formGroup]="loginForm" (submit)="onSubmit()">
+<h2 class="loginForm">Login</h2>
+<form class="loginForm" [formGroup]="loginForm" (submit)="onSubmit()">
   <div class="form-group">
     <label for="username">Username</label>
     <input name="username" formControlName="username" type="username" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter email">
@@ -10,9 +10,9 @@
     <input name="password" formControlName="password" type="password" class="form-control" id="password" placeholder="Password">
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
-  <div *ngIf="!loginForm.controls.username?.valid && (loginForm.controls.username?.dirty || loginForm.controls.username?.touched)">
+  <!-- <div *ngIf="!loginForm.controls.username?.valid && (loginForm.controls.username?.dirty || loginForm.controls.username?.touched)">
     <div [hidden]="!loginForm.controls.username.errors.required" class="alert alert-danger">
       Please enter valid username and password!
     </div>
-  </div>
+  </div> -->
 </form>

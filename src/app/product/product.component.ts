@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from '../services/shared.service';
+import { HttpClient } from '@angular/common/http';
+import { ProductHttpService } from '../services/product-http.service';
+
 
 @Component({
   selector: 'app-product',
@@ -7,9 +11,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductComponent implements OnInit {
 
-  constructor() { }
+  subCateId: number;
+
+  constructor(private sharedService: SharedService,
+              private http: HttpClient,
+              private productHttpServie: ProductHttpService) { 
+    this.sharedService.subCate$.subscribe(id => {
+      this.subCateId = id;
+      productHttpServie.getProducts(id).subscribe(data => console.log(data));
+    })
+  }
 
   ngOnInit() {
+
   }
 
 }
