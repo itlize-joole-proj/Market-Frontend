@@ -1,9 +1,8 @@
 import { Injectable, OnInit } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Buyer } from "../models/buyer.model";
-import { Observable, of } from 'rxjs';
+import { Observable, of } from "rxjs";
 
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap } from "rxjs/operators";
 const url = "http://localhost:8080/MarketApp";
 
 @Injectable()
@@ -27,15 +26,27 @@ export class AuthenticationService implements OnInit {
     let options = {
       headers: httpHeaders
     };
-    return this.http.post<any>('http://localhost:8080/MarketApp/login', JSON.stringify(buyer), options)
-    .pipe(map(user => {
-        // login successful if there's a jwt token in the response
-        if (user && user.token) {
+    return this.http
+      .post<any>(
+        "http://localhost:8080/MarketApp/login",
+        JSON.stringify(buyer),
+        options
+      )
+      .pipe(
+        map(user => {
+          // login successful if there's a jwt token in the response
+          if (user && user.token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify(user));
-        }
-        return user;
-    }));
+            localStorage.setItem("currentUser", JSON.stringify(user));
+          }
+          return user;
+        })
+      );
+  }
+
+  logout() {
+    // remove user from local storage to log user out
+    localStorage.removeItem("currentUser");
   }
 
   getTest(): void {
@@ -46,9 +57,8 @@ export class AuthenticationService implements OnInit {
       });
   }
 
-  private handleError<T> (operation = 'operation', result?: T) {
+  private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
-
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
 
