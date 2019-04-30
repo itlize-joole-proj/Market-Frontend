@@ -11,10 +11,13 @@ import { ProductHttpService } from '../services/product-http.service';
 })
 export class ProductComponent implements OnInit {
 
+  subCateId: number;
+
   constructor(private sharedService: SharedService,
               private http: HttpClient,
               private productHttpServie: ProductHttpService) { 
     this.sharedService.subCate$.subscribe(id => {
+      this.subCateId = id;
       productHttpServie.getProducts(id).subscribe(data => console.log(data));
     })
   }
