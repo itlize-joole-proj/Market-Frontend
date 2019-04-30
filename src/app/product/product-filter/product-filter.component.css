@@ -1,0 +1,10 @@
+#accordion {
+  width: 30%;
+  margin-left: 50px;
+}
+
+.card {
+  border-style: solid;
+  border-width: 2px;
+  margin-bottom: 2px;
+}
