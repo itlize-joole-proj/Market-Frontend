@@ -49,9 +49,6 @@ import { SharedService } from './services/shared.service';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
              SubCateHttpService, SharedService,
   ],
-  imports: [
-    BrowserModule, HttpClientModule, AppRoutingModule, ReactiveFormsModule, FormsModule
-  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
