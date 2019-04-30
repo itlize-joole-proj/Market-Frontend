@@ -1,5 +1,5 @@
-import { Injectable, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Injectable, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
 import { Attribute } from '../models/attribute.model';
@@ -13,17 +13,15 @@ import { setting } from '../services/environment';
 
 @Injectable()
 export class ProductHttpService implements OnInit {
-
- 
-
   constructor(private httpService: HttpClient) {}
+
 
   ngOnInit() {
 
   }
 
   showServiceInfo(): void {
-    console.log("Product http service working...");
+    console.log('Product http service working...');
   }
 
 
