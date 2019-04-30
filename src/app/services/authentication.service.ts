@@ -62,6 +62,7 @@ export class AuthenticationService implements OnInit {
         }
         return user;
       }));
+    }
 
   logout() {
     // remove user from local storage to log user out
