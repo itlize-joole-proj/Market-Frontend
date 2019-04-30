@@ -4,6 +4,7 @@ import { Buyer } from '../models/buyer.model';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { first } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,13 +18,18 @@ export class LoginComponent implements OnInit {
   submitted: boolean;
   message: string;
   messageClass: string;
+  returnUrl: string;
 
   constructor(private userHttpService: AuthenticationService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private activatedRoute: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     this.userHttpService.userHttpInfo();
     this.createForm();
+    this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/';
+    // console.log(this.returnUrl)
   }
 
   createForm() {
@@ -47,6 +53,7 @@ export class LoginComponent implements OnInit {
     return this.loginForm.controls;
   }
 
+
   onSubmit() {
     this.submitted = true;
     if (this.loginForm.invalid) {
@@ -60,7 +67,9 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data=>{
           // console.log(data);
-          console.log(localStorage.getItem('currentUser'))
+          console.log(localStorage.getItem('currentUser'));
+          console.log(this.router.navigate([this.returnUrl]));
+          this.router.navigateByUrl(this.returnUrl);
         },
         error=>{
           console.log(error)
@@ -69,10 +78,4 @@ export class LoginComponent implements OnInit {
         }
       )
   }
-
-  logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
-  }
-
 }
