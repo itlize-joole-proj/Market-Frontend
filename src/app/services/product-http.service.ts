@@ -1,10 +1,11 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { setting } from '../services/environment';
 
 @Injectable()
 export class ProductHttpService implements OnInit {
 
-  constructor(private httpService: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
 
@@ -12,6 +13,10 @@ export class ProductHttpService implements OnInit {
 
   showServiceInfo(): void {
     console.log("Product http service working...");
+  }
+
+  getProducts(subCateId: number) {
+    return this.http.get(setting.url + `/subcate/${subCateId}/products`);
   }
 
 }
