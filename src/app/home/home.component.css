@@ -1,0 +1,14 @@
+#form {
+    display: inline-block;
+    height: 100%;
+}
+
+.input {
+    float: left;
+    height: 100%;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+}
