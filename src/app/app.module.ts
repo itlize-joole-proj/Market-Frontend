@@ -15,7 +15,10 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { ProductHttpService } from './services/product-http.service';
 import { AuthenticationService } from './services/authentication.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { SubCateHttpService } from './services/subCate-http.service';
+import { ProductListComponent } from './product/product-list/product-list.component';
+import { SharedService } from './services/shared.service';
 
 @NgModule({
   declarations: [
@@ -25,12 +28,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProductComponent,
     SignupComponent,
     ProductDetailComponent,
-    ProductCompareComponent
+    ProductCompareComponent,
+    ProductListComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule, AppRoutingModule, ReactiveFormsModule
+    BrowserModule, HttpClientModule, AppRoutingModule, ReactiveFormsModule, FormsModule
   ],
-  providers: [ProductHttpService, AuthenticationService],
+  providers: [ProductHttpService, AuthenticationService, SubCateHttpService, SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

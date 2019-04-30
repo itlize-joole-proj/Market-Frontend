@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { SubCateHttpService } from '../services/subCate-http.service';
+import { SubCategory } from '../models/subCate.model';
+import { ProductHttpService } from '../services/product-http.service';
+import { ReactiveFormsModule, FormBuilder } from '@angular/forms'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { SharedService } from '../services/shared.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +14,46 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  private cates: string[] = ['Mechanical'];
+  private subCates: SubCategory[];
+  private selected;
+  subCatesForm: FormGroup;
+
+  constructor(private subCateHttpService: SubCateHttpService,
+              private productHttpService: ProductHttpService,
+              private fb: FormBuilder,
+              private sharedService: SharedService,
+              private router: Router) { }
 
   ngOnInit() {
+    this.createForm();
   }
 
+  createForm() {
+    this.subCatesForm = this.fb.group({
+      subCate: ['', Validators.required]
+    })
+  }
+
+  showSubCate(cate) {
+    this.subCateHttpService.getSubCate(cate).subscribe(
+      (resp) => { this.subCates = <SubCategory[]>resp; console.log(this.subCates);}
+    )
+  }
+
+  // onSearch() {
+  //   let id = this.subCates.find(cate => cate.name === this.selected).id;
+  //   console.log(id);
+  // }
+  onSubmit() {
+    if (this.subCatesForm.invalid) {
+      return;
+    }
+    let id = this.subCates.find(cate => cate.name === this.subCatesForm.controls.subCate.value).id;
+    console.log(typeof id);
+    this.sharedService.searchProduct(id);
+    this.router.navigate(['/products']);
+  }
+
+  
 }
