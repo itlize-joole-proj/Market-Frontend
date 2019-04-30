@@ -1,11 +1,10 @@
-import {Injectable, OnInit} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Buyer} from '../models/buyer.model';
-import {Observable, of} from 'rxjs';
 
-import {catchError, map, tap} from 'rxjs/operators';
+import { Injectable, OnInit } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable, of } from "rxjs";
 
-const url = 'http://localhost:8080/MarketApp';
+import { catchError, map, tap } from "rxjs/operators";
+const url = "http://localhost:8080/MarketApp";
 
 @Injectable()
 export class AuthenticationService implements OnInit {
@@ -66,6 +65,12 @@ export class AuthenticationService implements OnInit {
         }
         return user;
       }));
+    }
+
+  logout() {
+    // remove user from local storage to log user out
+    localStorage.removeItem("currentUser");
+
   }
 
   getTest(): void {
@@ -76,9 +81,9 @@ export class AuthenticationService implements OnInit {
       });
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
 
+  private handleError<T>(operation = "operation", result?: T) {
+    return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
 
