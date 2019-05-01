@@ -1,3 +1,10 @@
-#details{
+#sales{
   margin-left: 10px;
 }
+
+#manufacturer{
+  position: absolute;
+  right: 100px;
+  vertical-align: top;
+}
+
