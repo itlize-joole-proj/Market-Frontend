@@ -7,6 +7,7 @@ import { FormBuilder } from '@angular/forms';
 import { DOCUMENT } from '@angular/common';
 
 import { Filter } from 'src/app/models/filter.model';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-product-filter',
@@ -24,6 +25,7 @@ export class ProductFilterComponent implements OnInit {
 
   constructor(private productService: ProductHttpService,
               private formBuilder: FormBuilder,
+              private productS: ProductService,
               @Inject(DOCUMENT) document) { }
   // test: Filter = new Filter(10, 20);
   ngOnInit() {
@@ -50,14 +52,15 @@ export class ProductFilterComponent implements OnInit {
       }
     )
     // save filter data into localStorage, easy for sibling get the data
-    localStorage.setItem("filter", JSON.stringify(this.filterData));
-    this.getProductsOfFilter();
+    // localStorage.setItem("filter", JSON.stringify(this.filterData));
+    this.getProductsOfFilter(this.filterData);
   }
 
-  getProductsOfFilter() {
-    this.productService.getProductsFromFilter(this.subId, localStorage.getItem('filter'))
+  getProductsOfFilter(filterData: any) {
+    this.productService.getProductsFromFilter(this.subId, filterData)
     .subscribe(
       data => {
+        this.productS.updateProducts(data);
         console.log(data);
       },
       err => {
