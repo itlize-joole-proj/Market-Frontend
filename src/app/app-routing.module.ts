@@ -10,8 +10,8 @@ import { AuthGuard } from './guards/AuthGuard';
 
 const routes: Routes = [
   // { path: '', redirectTo: 'login', pathMatch: 'full', canActivate: [AuthGuardService] },
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
 
+  { path: '', component: HomeComponent},
   { path: 'products', component: ProductComponent, children: [
       { path: ':id', component: ProductDetailComponent },
       { path: 'compare', component:  ProductCompareComponent }

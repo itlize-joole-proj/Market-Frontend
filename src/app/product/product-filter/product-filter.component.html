@@ -1,108 +1,120 @@
 <button (click)="show()">Show</button>
-<div id="accordion">
-  <div class="card">
-    <div class="card-header" id="headingOne">
-      <h5 class="mb-0">
-        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          <div *ngIf="attributes">{{attributes[0].attributeTypeName}}</div>
-        </button>
-      </h5>
-    </div>
-    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-      <div class="card-body">
+    <button type="submit" class="btn btn-primary" (click)="onFilterSubmit($event)">Save</button>
+
+    <!-- <input id='left' type="number" [(ngModel)]="test.minValue">
+    <input id ='right' type="number" [(ngModel)]="test.maxValue">
+    <ng5-slider [(value)]="test.minValue" [(highValue)]="test.maxValue" [options]="test.options"></ng5-slider> -->
+
+  <div id="accordion">
+    <div class="card">
+        <h5 class="mb-0">
+          <label class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <div *ngIf="attributes">
+              {{attributes[0].attributeTypeName}}
+            </div>
+          </label>
+        </h5>
         <div *ngIf="filter && attributes">
-          <div *ngFor="let attr of filter[attributes[0].attributeTypeName]">
-            <div *ngIf="attr && attr.isRange === 1">
-              {{attr.attributeName}}
+          <div *ngFor="let attr of filter[attributes[0].attributeTypeName]; let i = index">
+            <div class="form-inline" *ngIf="attr && attr.isRange === 1">
+              <label class="form-group">{{attr.attributeName}}</label><br>
+              <input id='{{"left-" + attr.attributeName}}' type="number" [(ngModel)]="attr.rangeSlider.minValue">
+              <ng5-slider [(value)]="attr.rangeSlider.minValue" [(highValue)]="attr.rangeSlider.maxValue" [options]="attr.rangeSlider.options"></ng5-slider>
+              <input id='{{"right-" + attr.attributeName}}' type="number" [(ngModel)]="attr.rangeSlider.maxValue">
             </div>
           </div>
-          <!-- {{filter[attributes[0].attributeTypeName][0].attributeName}} -->
         </div>
-      </div>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-header" id="headingTwo">
+
+
+    <div class="card">
       <h5 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            <div *ngIf="attributes">{{attributes[1].attributeTypeName}}</div>
-        </button>
-      </h5>
-    </div>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-      <div class="card-body">
-        <div *ngIf="filter && attributes">
-          <div *ngFor="let attr of filter[attributes[1].attributeTypeName]">
-              <div *ngIf="attr && attr.isRange === 1">
-                  {{attr.attributeName}} {{attr.minValue}} {{attr.maxValue}}
-              </div>
+        <label class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <div *ngIf="attributes">
+            {{attributes[1].attributeTypeName}}
           </div>
-          <!-- {{filter[attributes[0].attributeTypeName][0].attributeName}} -->
+        </label>
+      </h5>
+      <div *ngIf="filter && attributes">
+        <div *ngFor="let attr of filter[attributes[1].attributeTypeName]; let i = index">
+          <div class="form-inline" *ngIf="attr && attr.isRange === 1">
+            <label class="form-group">{{attr.attributeName}}</label><br>
+            <input id='{{"left-" + attr.attributeName}}' type="number" [(ngModel)]="attr.rangeSlider.minValue">
+            <ng5-slider [(value)]="attr.rangeSlider.minValue" [(highValue)]="attr.rangeSlider.maxValue" [options]="attr.rangeSlider.options"></ng5-slider>
+            <input id='{{"right-" + attr.attributeName}}' type="number" [(ngModel)]="attr.rangeSlider.maxValue">
+          </div>
         </div>
       </div>
-    </div>
   </div>
+
   <div class="card">
-    <div class="card-header" id="headingThree">
       <h5 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            <div *ngIf="attributes">{{attributes[2].attributeTypeName}}</div>
-        </button>
-      </h5>
-    </div>
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-      <div class="card-body">
-        <div *ngIf="filter && attributes">
-          <div *ngFor="let attr of filter[attributes[2].attributeTypeName]">
-            <div *ngIf="attr && attr.isRange === 1">
-              {{attr.attributeName}}
-            </div>
+        <label class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <div *ngIf="attributes">
+            {{attributes[2].attributeTypeName}}
           </div>
-          <!-- {{filter[attributes[0].attributeTypeName][0].attributeName}} -->
+        </label>
+      </h5>
+      <div *ngIf="filter && attributes">
+        <div *ngFor="let attr of filter[attributes[2].attributeTypeName]; let i = index">
+          <div class="form-inline" *ngIf="attr && attr.isRange === 1">
+            <label class="form-group">{{attr.attributeName}}</label><br>
+            <input id='{{"left-" + attr.attributeName}}' type="number" [(ngModel)]="attr.rangeSlider.minValue">
+            <ng5-slider [(value)]="attr.rangeSlider.minValue" [(highValue)]="attr.rangeSlider.maxValue" [options]="attr.rangeSlider.options"></ng5-slider>
+            <input id='{{"right-" + attr.attributeName}}' type="number" [(ngModel)]="attr.rangeSlider.maxValue">
+          </div>
         </div>
       </div>
-    </div>
   </div>
+
   <div class="card">
-    <div class="card-header" id="headingFour">
       <h5 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-            <div *ngIf="attributes">{{attributes[3].attributeTypeName}}</div>
-        </button>
-      </h5>
-    </div>
-    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-      <div class="card-body">
-        <div *ngIf="filter && attributes">
-          <div *ngFor="let attr of filter[attributes[3].attributeTypeName]">
-            <div *ngIf="attr && attr.isRange === 1">
-              {{attr.attributeName}}
-            </div>
+        <label class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <div *ngIf="attributes">
+            {{attributes[3].attributeTypeName}}
           </div>
-          <!-- {{filter[attributes[0].attributeTypeName][0].attributeName}} -->
+        </label>
+      </h5>
+      <div *ngIf="filter && attributes">
+        <div *ngFor="let attr of filter[attributes[3].attributeTypeName]; let i = index">
+          <div class="form-inline" *ngIf="attr && attr.isRange === 1">
+            <label class="form-group">{{attr.attributeName}}</label><br>
+            <input id='{{"left-" + attr.attributeName}}' type="number" [(ngModel)]="attr.rangeSlider.minValue">
+            <ng5-slider [(value)]="attr.rangeSlider.minValue" [(highValue)]="attr.rangeSlider.maxValue" [options]="attr.rangeSlider.options"></ng5-slider>
+            <input id='{{"right-" + attr.attributeName}}' type="number" [(ngModel)]="attr.rangeSlider.maxValue">
+          </div>
         </div>
       </div>
-    </div>
   </div>
+
   <div class="card">
-    <div class="card-header" id="headingFive">
       <h5 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-            <div *ngIf="attributes">{{attributes[4].attributeTypeName}}</div>
-        </button>
-      </h5>
-    </div>
-    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
-      <div class="card-body">
-        <div *ngIf="filter && attributes">
-          <div *ngFor="let attr of filter[attributes[4].attributeTypeName]">
-            <div *ngIf="attr && attr.isRange === 1">
-              {{attr.attributeName}}
-            </div>
+        <label class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <div *ngIf="attributes">
+            {{attributes[4].attributeTypeName}}
           </div>
-          <!-- {{filter[attributes[0].attributeTypeName][0].attributeName}} -->
+        </label>
+      </h5>
+      <div *ngIf="filter && attributes">
+        <div *ngFor="let attr of filter[attributes[4].attributeTypeName]; let i = index">
+          <div class="form-inline" *ngIf="attr && attr.isRange === 1">
+            <label class="form-group">{{attr.attributeName}}</label><br>
+            <input id='{{"left-" + attr.attributeName}}' type="number" [(ngModel)]="attr.rangeSlider.minValue">
+            <ng5-slider [(value)]="attr.rangeSlider.minValue" [(highValue)]="attr.rangeSlider.maxValue" [options]="attr.rangeSlider.options"></ng5-slider>
+            <input id='{{"right-" + attr.attributeName}}' type="number" [(ngModel)]="attr.rangeSlider.maxValue">
+          </div>
         </div>
       </div>
+  </div>
+
+  </div>
+<!-- <form [formGroup]="filterForm">
+  <div class="form-inline">
+    <div class="form-group">
+      <input type="text" formControlName="username" class="form-control" placeholder="First name">
+    </div>
+    <div class="form-group">
+      <input type="text" formControlName="password" class="form-control" placeholder="Last name">
     </div>
   </div>
-</div>
+</form> -->

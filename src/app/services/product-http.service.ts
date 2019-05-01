@@ -1,10 +1,11 @@
 import { Injectable, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, of } from 'rxjs';
-import { Attribute } from '../models/attribute.model';
+import { AttributeType } from '../models/attributeType.model';
 import { catchError, map, tap } from 'rxjs/operators';
-import { AttributeDetails } from '../models/attributeDetail.model';
+import { Attribute } from '../models/attribute.model';
+import { Product } from '../models/produnt.model';
 
 const url = "http://localhost:8080/MarketApp";
 
@@ -24,23 +25,39 @@ export class ProductHttpService implements OnInit {
     console.log("Product http service working...");
   }
 
-
   getFilterAttributes(): Observable<Attribute[]> {
     const category_url = `${url}/attributePart`;
-    return this.httpService.get<Attribute[]>(category_url)
+    return this.httpService.get<AttributeType[]>(category_url)
         .pipe(
           // tap(res => this.log('' + res)),
-          catchError(this.handleError<Attribute[]>('getAttributes', []))
+          catchError(this.handleError<AttributeType[]>('getAttributes', []))
         );
   }
 
-  getFilterAttributeDetails(subCateId: String): Observable<AttributeDetails[]> {
+  getFilterAttributeDetails(subCateId: string): Observable<Attribute[]> {
     const category_url = `${url}/filter/${subCateId}`;
-    return this.httpService.get<AttributeDetails[]>(category_url)
+    // console.log(category_url);
+    return this.httpService.get<Attribute[]>(category_url)
         .pipe(
           // tap(res => this.log('' + res)),
-          catchError(this.handleError<AttributeDetails[]>('getAttributeDetails', []))
+          catchError(this.handleError<Attribute[]>('getAttributeDetails', []))
         );
+  }
+
+  getProductsFromFilter(subCateId: string, filterData: any): Observable<Product[]> {
+    const product_filter_url = `${url}/filter/${subCateId}`;
+    let httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json"
+    });
+    let options = {
+      headers: httpHeaders
+    };
+    console.log(filterData)
+    return this.httpService.post<any>(product_filter_url, JSON.stringify(filterData), options)
+            .pipe(
+              tap(res => this.log('Get Data: ' + res)),
+              catchError(this.handleError<Product[]>('Error in get products of filter', []))
+            );
   }
 
   private handleError<T>(operation = "operation", result?: T) {
@@ -59,11 +76,10 @@ export class ProductHttpService implements OnInit {
   /** Log a HeroService message with the MessageService */
   private log(message: string) {
     // this.messageService.add(`HeroService: ${message}`);
-    console.log(message);
+    console.log("erroe" + message)
 
   getProducts(subCateId: number) {
     return this.http.get(setting.url + `/subcate/${subCateId}/products`);
-
   }
 
 }
