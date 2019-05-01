@@ -4,51 +4,99 @@
 
 <div>
 
-  <table col="500">
-    <tr>
-      <td width="200px">Product Summary</td>
-      <td width="200px">Product Details</td>
-      <td width="200px">Product Documentation</td>
-      <td>Contact</td>
-    </tr>
-  </table>
+  <!--  <table col="500">-->
+  <!--    <tr>-->
+  <!--      <td width="200px">Product Summary</td>-->
+  <!--      <td width="200px">Product Details</td>-->
+  <!--      <td width="200px">Product Documentation</td>-->
+  <!--      <td>Contact</td>-->
+  <!--    </tr>-->
+  <!--  </table>-->
 
   <div>
     <h2>Product Summary</h2>
-    <div>...</div>
+    <p class="align-center" *ngFor="let item of product | keys">{{item}}: {{product[item]}}</p>
   </div>
-
 
   <div>
     <h2>Product Details</h2>
     <table>
       <thead>
       <tr>
-        <td> ProductID</td>
-        <td> ProductName</td>
-        <td> ProductDescription</td>
-        <td> ProductPrice</td>
+        <td>SERIES INFORMATION</td>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let item of data">
-        <td>{{item.ProductID}}</td>
-        <td>{{item.ProductName}}</td>
-        <td>{{item.ProductDescription}}</td>
-        <td>{{item.ProductPrice}}</td>
+      <tr>
+        <td>{{product.details}}</td>
       </tr>
       </tbody>
     </table>
-
-
   </div>
+
   <div>
     <h2>Product Documentation</h2>
-    <div></div>
+    <table>
+      <tbody>
+      <tr>
+        <td>Details: {{product.documentUrl}}</td>
+      </tr>
+      </tbody>
+    </table>
   </div>
+
   <div>
     <h2>Contact</h2>
-    <div></div>
+    <table id="sales">
+      <thead>
+      <tr>
+        <td>SALES REPRESENTATIVE</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Name</td>
+        <td>{{sales.name}}</td>
+      </tr>
+      <tr>
+        <td>Phone</td>
+        <td>{{sales.phone}}</td>
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td>{{sales.email}}</td>
+      </tr>
+      <tr>
+        <td>Web</td>
+        <td>{{sales.webUrl}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <table id="manufacturer">
+      <thead>
+      <tr>
+        <td>MANUFACTURER</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Department</td>
+        <td>{{manufacturer.department}}</td>
+      </tr>
+      <tr>
+        <td>Phone</td>
+        <td>{{manufacturer.phone}}</td>
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td>{{manufacturer.email}}</td>
+      </tr>
+      <tr>
+        <td>Web</td>
+        <td>{{manufacturer.webUrl}}</td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 
 

@@ -20,21 +20,20 @@ export class ProductComponent implements OnInit {
 
   constructor(private sharedService: SharedService,
               private http: HttpClient,
-             private productHttpServie: ProductHttpService,
-              private productService: ProductService) { 
 
-    this.sharedService.subCate$.subscribe(id => {
-      this.subCateId = id;
-      productHttpServie.getProducts(id).subscribe(
-        data => {
-          this.products = data;
-          productService.updateProducts(data);
-          });
-    });
-  }
+              private productHttpServie: ProductHttpService,
+              private productService: ProductService) {
+              }
 
   ngOnInit() {
-
+    this.sharedService.subCate$.subscribe(id => {
+      this.subCateId = id;
+      this.productHttpServie.getProducts(id).subscribe(
+        data => {
+          this.products = data;
+          this.productService.updateProducts(data);
+          });
+    });
   }
 
 }

@@ -28,6 +28,10 @@ import {KeysPipe} from './pipes/keys.pipe';
 import {ProductService} from './product/product.service';
 
 
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,

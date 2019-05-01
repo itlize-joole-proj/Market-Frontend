@@ -10,26 +10,46 @@ import {ProductHttpService} from '../../services/product-http.service';
 export class ProductDetailComponent implements OnInit {
 
   // Global Variable
-  public data: any;
+  public product: any;
+  public manufacturer: any;
+  public sales: any;
 
   constructor(private service: ProductHttpService) {
 
   }
 
   ngOnInit() {
-    this.fetchData();
-
+    this.fetchProductData();
+    this.fetchSalesData();
+    this.fetchManufacturerData();
   }
 
-  fetchData() {
+  fetchProductData() {
     const productSummary = this.service.getProductSummary(1);
     const productSummarysubs = productSummary.subscribe(response => {
-      this.data = response;
-      console.log(this.data);
-      console.log(typeof (this.data));
+      this.product = response;
+      console.log(this.product);
+      console.log(typeof (this.product));
     });
     console.log(productSummary);
     console.log(productSummarysubs);
   }
+
+
+  fetchSalesData() {
+    console.log(this.product.saleId);
+    this.service.getSales(this.product['saleId']).subscribe(response => {
+      this.sales = response;
+      console.log(this.sales);
+    });
+  }
+
+  fetchManufacturerData() {
+    this.service.getManufacturer(this.product.manufacturerId).subscribe(response => {
+      this.manufacturer = response;
+      console.log(this.manufacturer);
+    });
+  }
+
 
 }

@@ -1,21 +1,22 @@
-<button (click)="show()">Show</button>
-    <button type="submit" class="btn btn-primary" (click)="onFilterSubmit($event)">Save</button>
+
+  <button type="submit" class="btn btn-primary" (click)="onFilterSubmit($event)">Save</button>
 
     <!-- <input id='left' type="number" [(ngModel)]="test.minValue">
     <input id ='right' type="number" [(ngModel)]="test.maxValue">
     <ng5-slider [(value)]="test.minValue" [(highValue)]="test.maxValue" [options]="test.options"></ng5-slider> -->
 
   <div id="accordion">
-    <div class="card">
+    <div *ngFor="let attrType of attributes; let index=index">
+      <div class="card">
         <h5 class="mb-0">
           <label class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
             <div *ngIf="attributes">
-              {{attributes[0].attributeTypeName}}
+              {{attrType.attributeTypeName}}
             </div>
           </label>
         </h5>
         <div *ngIf="filter && attributes">
-          <div *ngFor="let attr of filter[attributes[0].attributeTypeName]; let i = index">
+          <div *ngFor="let attr of filter[attrType.attributeTypeName]; let i = index">
             <div class="form-inline" *ngIf="attr && attr.isRange === 1">
               <label class="form-group">{{attr.attributeName}}</label><br>
               <input id='{{"left-" + attr.attributeName}}' type="number" [(ngModel)]="attr.rangeSlider.minValue">
@@ -25,7 +26,8 @@
           </div>
         </div>
     </div>
-
+  </div>
+<!--
 
     <div class="card">
       <h5 class="mb-0">
@@ -105,16 +107,6 @@
           </div>
         </div>
       </div>
-  </div>
+  </div> -->
 
   </div>
-<!-- <form [formGroup]="filterForm">
-  <div class="form-inline">
-    <div class="form-group">
-      <input type="text" formControlName="username" class="form-control" placeholder="First name">
-    </div>
-    <div class="form-group">
-      <input type="text" formControlName="password" class="form-control" placeholder="Last name">
-    </div>
-  </div>
-</form> -->

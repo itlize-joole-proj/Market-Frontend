@@ -7,6 +7,7 @@ import { FormBuilder } from '@angular/forms';
 import { DOCUMENT } from '@angular/common';
 
 import { Filter } from 'src/app/models/filter.model';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-product-filter',
@@ -24,6 +25,7 @@ export class ProductFilterComponent implements OnInit {
 
   constructor(private productService: ProductHttpService,
               private formBuilder: FormBuilder,
+              private productS: ProductService,
               @Inject(DOCUMENT) document) { }
   // test: Filter = new Filter(10, 20);
   ngOnInit() {
@@ -33,8 +35,6 @@ export class ProductFilterComponent implements OnInit {
 
   onFilterSubmit() {
     console.log("Submit Filter");
-    // const test = <HTMLInputElement>document.getElementById("left");
-    // console.log(test.value);
     this.rangeFilterList.forEach(
       element=>{
         // each filt element
@@ -46,21 +46,21 @@ export class ProductFilterComponent implements OnInit {
           const temp = {};
           temp["min"] = Number(leftVal.value);
           temp["max"] = Number(rightVal.value);
+          // console.log(String(element.attributeName));
           this.filterData[String(element.attributeName).replace(' ', '')] = temp;
         }
       }
     )
-    // console.log(JSON.stringify(this.filterData))
+    // save filter data into localStorage, easy for sibling get the data
     // localStorage.setItem("filter", JSON.stringify(this.filterData));
     this.getProductsOfFilter(this.filterData);
   }
 
   getProductsOfFilter(filterData: any) {
-    console.log("products from filter");
-    // console.log(filterData);
     this.productService.getProductsFromFilter(this.subId, filterData)
     .subscribe(
       data => {
+        this.productS.updateProducts(data);
         console.log(data);
       },
       err => {
@@ -106,11 +106,6 @@ export class ProductFilterComponent implements OnInit {
       err => {console.log(err)},
       () => this.getFilterAttributes(),
     );
-  }
-
-  show() {
-    console.log(this.attributes);
-    console.log(this.attributeDetails);
   }
 
 }

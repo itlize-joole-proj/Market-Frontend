@@ -62,6 +62,11 @@ export class ProductHttpService implements OnInit {
         tap(res => this.log('Get Data: ' + res)),
         catchError(this.handleError<Product[]>('Error in get products of filter', []))
       );
+    return this.httpService.post<Product[]>(product_filter_url, filterData, options)
+      .pipe(
+        tap(res => this.log('Get Data: ' + res)),
+        catchError(this.handleError<Product[]>('Error in get products of filter', []))
+      );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
@@ -80,7 +85,6 @@ export class ProductHttpService implements OnInit {
   /** Log a HeroService message with the MessageService */
   private log(message: string) {
     // this.messageService.add(`HeroService: ${message}`);
-
     console.log('error' + message);
   }
 
@@ -117,6 +121,14 @@ export class ProductHttpService implements OnInit {
   //       .then(data => console.log(data));
   //   });
   // }
+
+  getSales(salesID: number) {
+    return this.httpService.get(baseUrl + `/sale/${salesID}`);
+  }
+
+  getManufacturer(manufacturerID: number) {
+    return this.httpService.get(baseUrl + `/manufacturer/${manufacturerID}`);
+  }
 
   // getSubCate(cateName: string): Observable<SubCategory[]>{
 
