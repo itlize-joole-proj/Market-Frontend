@@ -1,15 +1,24 @@
-import {Injectable, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 
-import {Observable, of} from 'rxjs';
-import {Attribute} from '../models/attribute.model';
-import {catchError, map, tap} from 'rxjs/operators';
-import {AttributeDetails} from '../models/attributeDetail.model';
+import { Injectable, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+
+
+import { Attribute } from '../models/attribute.model';
+import { Observable, of, pipe} from 'rxjs';
+import { AttributeType } from '../models/attributeType.model';
+
+import { catchError, map, tap } from 'rxjs/operators';
+import { Attribute } from '../models/attribute.model';
+import { Product } from '../models/produnt.model';
+
+import {baseUrl, setting} from '../services/environment';
+
+import { setting } from '../services/environment';
+import { Product } from '../models/product.model';
 
 const url = 'http://localhost:8080/MarketApp';
 
-import {baseUrl, setting} from '../services/environment';
 
 
 @Injectable()
@@ -28,26 +37,43 @@ export class ProductHttpService implements OnInit {
     console.log('Product http service working...');
   }
 
-
-  getFilterAttributes(): Observable<Attribute[]> {
+  getFilterAttributes(): Observable<AttributeType[]> {
     const category_url = `${url}/attributePart`;
-    return this.httpService.get<Attribute[]>(category_url)
-      .pipe(
-        // tap(res => this.log('' + res)),
-        catchError(this.handleError<Attribute[]>('getAttributes', []))
-      );
+    return this.httpService.get<AttributeType[]>(category_url)
+        .pipe(
+          // tap(res => this.log('' + res)),
+          catchError(this.handleError<AttributeType[]>('getAttributes', []))
+        );
   }
 
-  getFilterAttributeDetails(subCateId: String): Observable<AttributeDetails[]> {
+  getFilterAttributeDetails(subCateId: string): Observable<Attribute[]> {
     const category_url = `${url}/filter/${subCateId}`;
-    return this.httpService.get<AttributeDetails[]>(category_url)
-      .pipe(
-        // tap(res => this.log('' + res)),
-        catchError(this.handleError<AttributeDetails[]>('getAttributeDetails', []))
-      );
+
+    // console.log(category_url);
+    return this.httpService.get<Attribute[]>(category_url)
+        .pipe(
+          // tap(res => this.log('' + res)),
+          catchError(this.handleError<Attribute[]>('getAttributeDetails', []))
+        );
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
+  getProductsFromFilter(subCateId: string, filterData: any): Observable<Product[]> {
+    const product_filter_url = `${url}/filter/${subCateId}`;
+    let httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json"
+    });
+    let options = {
+      headers: httpHeaders
+    };
+    console.log(filterData)
+    return this.httpService.post<any>(product_filter_url, JSON.stringify(filterData), options)
+            .pipe(
+              tap(res => this.log('Get Data: ' + res)),
+              catchError(this.handleError<Product[]>('Error in get products of filter', []))
+            );
+  }
+
+  private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
@@ -63,13 +89,17 @@ export class ProductHttpService implements OnInit {
   /** Log a HeroService message with the MessageService */
   private log(message: string) {
     // this.messageService.add(`HeroService: ${message}`);
-    console.log(message);
+
+    console.log("error" + message)  
   }
 
-  getProducts(subCateId: number) {
-    return this.httpService.get(setting.url + `/subcate/${subCateId}/products`);
+
+  getProducts(subCateId: number): Observable<Product[]> {
+    return this.httpService.get<Product[]>(setting.url + `/subcate/${subCateId}/products`)
+              .pipe(map(res => res.map(item => new Product(item))));
 
   }
+
 
   // Wei
   getProductSummary(productID: number) {
@@ -97,5 +127,21 @@ export class ProductHttpService implements OnInit {
   //       .then(data => console.log(data));
   //   });
   // }
+
+  // getSubCate(cateName: string): Observable<SubCategory[]>{
+
+  //   return this.http.get<SubCategory[]>('http://localhost:8080/MarketApp' + `/Category/${cateName}/SubCates`)
+  //   // .pipe(map(res => res.map((item) => new SubCategory(
+  //   //     item.SubCategoryName,
+  //   //     item.SubCategoryID,
+  //   //     item.CategoryID
+  //   // ))));
+  //   // .pipe(map(res => res.map(item => new SubCategory(
+  //   //     item.SubCategoryName,
+  //   //      item.SubCategoryID,
+  //   //      item.CategoryID
+  //   // ))));
+  //   .pipe(map(res => res.map(item => new SubCategory(item))));
+
 
 }
