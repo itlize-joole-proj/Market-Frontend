@@ -1,27 +1,37 @@
+
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+
+
+
+import { Attribute } from '../models/attribute.model';
+import { Observable, of, pipe} from 'rxjs';
 import { AttributeType } from '../models/attributeType.model';
+
 import { catchError, map, tap } from 'rxjs/operators';
 import { Attribute } from '../models/attribute.model';
 import { Product } from '../models/produnt.model';
 
 const url = "http://localhost:8080/MarketApp";
 
+import { setting } from '../services/environment';
+import { Product } from '../models/product.model';
+
+
 @Injectable()
 export class ProductHttpService implements OnInit {
-
   constructor(private httpService: HttpClient) {}
+
 
   ngOnInit() {
 
   }
 
   showServiceInfo(): void {
-    console.log("Product http service working...");
+    console.log('Product http service working...');
   }
 
-  getFilterAttributes(): Observable<AttributeType[]> {
+  getFilterAttributes(): Observable<Attribute[]> {
     const category_url = `${url}/attributePart`;
     return this.httpService.get<AttributeType[]>(category_url)
         .pipe(
@@ -72,7 +82,31 @@ export class ProductHttpService implements OnInit {
   /** Log a HeroService message with the MessageService */
   private log(message: string) {
     // this.messageService.add(`HeroService: ${message}`);
-    console.log("erroe" + message);
+
+    console.log("error" + message)  
   }
+
+
+  getProducts(subCateId: number): Observable<Product[]> {
+    return this.httpService.get<Product[]>(setting.url + `/subcate/${subCateId}/products`)
+              .pipe(map(res => res.map(item => new Product(item))));
+
+  }
+
+  // getSubCate(cateName: string): Observable<SubCategory[]>{
+
+  //   return this.http.get<SubCategory[]>('http://localhost:8080/MarketApp' + `/Category/${cateName}/SubCates`)
+  //   // .pipe(map(res => res.map((item) => new SubCategory(
+  //   //     item.SubCategoryName,
+  //   //     item.SubCategoryID,
+  //   //     item.CategoryID
+  //   // ))));
+  //   // .pipe(map(res => res.map(item => new SubCategory(
+  //   //     item.SubCategoryName,
+  //   //      item.SubCategoryID,
+  //   //      item.CategoryID
+  //   // ))));
+  //   .pipe(map(res => res.map(item => new SubCategory(item))));
+
 
 }

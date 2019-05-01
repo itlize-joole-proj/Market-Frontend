@@ -1,3 +1,4 @@
+
 import { Injectable, OnInit } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, of } from "rxjs";
@@ -7,12 +8,14 @@ const url = "http://localhost:8080/MarketApp";
 
 @Injectable()
 export class AuthenticationService implements OnInit {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   userHttpInfo(): void {
-    console.log("User http service...");
+    console.log('User http service...');
   }
 
   login(name, pwd) {
@@ -20,42 +23,61 @@ export class AuthenticationService implements OnInit {
       username: name,
       password: pwd
     };
-    let httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json"
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json'
     });
-    let options = {
+    const options = {
       headers: httpHeaders
     };
-    return this.http
-      .post<any>(
-        "http://localhost:8080/MarketApp/login",
-        JSON.stringify(buyer),
-        options
-      )
-      .pipe(
-        map(user => {
-          // login successful if there's a jwt token in the response
-          if (user && user.token) {
-            // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem("currentUser", JSON.stringify(user));
-          }
-          return user;
-        })
-      );
+    return this.http.post<any>('http://localhost:8080/MarketApp/login', JSON.stringify(buyer), options)
+      .pipe(map(user => {
+        // login successful if there's a jwt token in the response
+        if (user && user.token) {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        }
+        return user;
+      }));
   }
+
+  /* Wei Chen 4.29 */
+  register(name, pwd, eml, fname, lname) {
+    const buyer = {
+      username: name,
+      password: pwd,
+      email: eml,
+      firstname: fname,
+      lastname: lname
+    };
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    const options = {
+      headers: httpHeaders
+    };
+    return this.http.post<any>('http://localhost:8080/MarketApp/register', JSON.stringify(buyer), options)
+      .pipe(map(user => {
+        if (user && user.token) {
+          localStorage.setItem('newUser', JSON.stringify(user));
+        }
+        return user;
+      }));
+    }
 
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem("currentUser");
+
   }
 
   getTest(): void {
     this.http
-      .get("http://localhost:8080/MarketApp/products/1")
+      .get('http://localhost:8080/MarketApp/products/1')
       .subscribe(data => {
         console.log(data);
       });
   }
+
 
   private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
