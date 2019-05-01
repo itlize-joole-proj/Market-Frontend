@@ -2,22 +2,29 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-
 import { Observable, of, pipe} from 'rxjs';
 import { AttributeType } from '../models/attributeType.model';
 
 import { catchError, map, tap } from 'rxjs/operators';
 import { Attribute } from '../models/attribute.model';
-import { Product } from '../models/product.model';
 
-const url = "http://localhost:8080/MarketApp";
+import { Product } from '../models/product.model'
+
+
+import {baseUrl, setting} from '../services/environment';
 
 import { setting } from '../services/environment';
+
+const url = 'http://localhost:8080/MarketApp';
+
 
 
 @Injectable()
 export class ProductHttpService implements OnInit {
-  constructor(private httpService: HttpClient) {}
+  public data: any;
+
+  constructor(private httpService: HttpClient) {
+  }
 
 
   ngOnInit() {
@@ -39,6 +46,7 @@ export class ProductHttpService implements OnInit {
 
   getFilterAttributeDetails(subCateId: string): Observable<Attribute[]> {
     const category_url = `${url}/filter/${subCateId}`;
+
     // console.log(category_url);
     return this.httpService.get<Attribute[]>(category_url)
         .pipe(
@@ -89,6 +97,34 @@ export class ProductHttpService implements OnInit {
               .pipe(map(res => res.map(item => new Product(item))));
 
   }
+
+
+  // Wei
+  getProductSummary(productID: number) {
+
+    // // let productSummary;
+    // this.httpService.get(baseUrl + `/products/${productID}`, {responseType: 'json'}).subscribe(response => {
+    //   this.data = response;
+    //   const productSummary = JSON.stringify(response);
+    //   console.log(productSummary);
+    //   return productSummary;
+    // });
+
+    // return oberservable
+    return this.httpService.get(baseUrl + `/products/${productID}`);
+  }
+
+  // getProductSummary2(productID: number) {
+  //   return new Promise(resolve => {
+  //     this.httpService.get(baseUrl + `/products/${productID}`)
+  //       .map(results => results.json())
+  //       .subscribe(data => {
+  //         this.data = data;
+  //         resolve(this.data);
+  //       })
+  //       .then(data => console.log(data));
+  //   });
+  // }
 
   // getSubCate(cateName: string): Observable<SubCategory[]>{
 

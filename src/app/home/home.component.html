@@ -1,23 +1,32 @@
+<nav>
+  <button (click)="logout()">Logout</button>
+</nav>
+
 <p>
   home works!
 </p>
 <div id="container">
   <div class="form-group">
-      <select (change)='showSubCate($event.target.value)' name="cate" class="input">
-          <option value='All'>--All--</option>
-          <option *ngFor="let cate of cates" [value]="cate">{{cate}}</option>
-        </select>
-        
-        <form [formGroup]="subCatesForm" (submit)="onSubmit()" id="form">
-          <input list="SubCates" name="subCate" formControlName="subCate" class="input"/> 
-          <datalist id="SubCates"  name="subCateList" >
-            <option *ngFor="let subcate of subCates" [ngValue]="subcate">{{subcate.name}}</option>
-          </datalist>
-          <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>
-        </form>
+    <select (change)='showSubCate($event.target.value)' name="cate" class="input">
+      <option value='All'>--All--</option>
+      <option *ngFor="let cate of cates" [value]="cate">{{cate}}</option>
+    </select>
+
+    <form [formGroup]="subCatesForm" (submit)="onSubmit()" id="form">
+      <input list="SubCates" name="subCate" formControlName="subCate" class="input"/>
+      <datalist id="SubCates" name="subCateList">
+        <option *ngFor="let subcate of subCates" [ngValue]="subcate">{{subcate.name}}</option>
+      </datalist>
+      <button type="submit" class="btn"><span class="glyphicon glyphicon-search"></span></button>
+    </form>
+  </div>
+
+  <!--  Wei Product Detail Page-->
+  <div>
+    <button id="product_detail" routerLink="productDetail">Product Detail</button>
   </div>
 
 </div>
 
-  <!-- <button (click)="testClick($event)">Test</button> -->
+<!-- <button (click)="testClick($event)">Test</button> -->
 

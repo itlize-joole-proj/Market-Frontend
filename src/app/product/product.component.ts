@@ -1,9 +1,11 @@
+
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../services/shared.service';
 import { HttpClient } from '@angular/common/http';
 import { ProductHttpService } from '../services/product-http.service';
 import { Product } from '../models/product.model';
 import { ProductService } from './product.service';
+
 
 
 @Component({
@@ -18,9 +20,9 @@ export class ProductComponent implements OnInit {
 
   constructor(private sharedService: SharedService,
               private http: HttpClient,
+
               private productHttpServie: ProductHttpService,
               private productService: ProductService) {
-
               }
 
   ngOnInit() {

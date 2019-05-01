@@ -1,4 +1,12 @@
+/*Wei*/
 .loginForm {
   width: 30%;
   margin-left: 35%;
+  margin-top: 10%;
+}
+
+nav{
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }

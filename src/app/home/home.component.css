@@ -12,3 +12,16 @@
     display: flex;
     justify-content: center;
 }
+
+/*Wei*/
+nav{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+#product_detail{
+  position: absolute;
+  right: 5px;
+  top: 100px;
+}

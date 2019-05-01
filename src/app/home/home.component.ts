@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { SubCateHttpService } from '../services/subCate-http.service';
-import { SubCategory } from '../models/subCate.model';
-import { ProductHttpService } from '../services/product-http.service';
-import { ReactiveFormsModule, FormBuilder } from '@angular/forms'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { SharedService } from '../services/shared.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {SubCateHttpService} from '../services/subCate-http.service';
+import {SubCategory} from '../models/subCate.model';
+import {ProductHttpService} from '../services/product-http.service';
+import {ReactiveFormsModule, FormBuilder} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {SharedService} from '../services/shared.service';
+import {Router} from '@angular/router';
+import {AuthenticationService} from '../services/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,14 @@ export class HomeComponent implements OnInit {
               private productHttpService: ProductHttpService,
               private fb: FormBuilder,
               private sharedService: SharedService,
-              private router: Router) { }
+              private authenticationService: AuthenticationService,
+              private router: Router) {
+  }
+
+  // added by Wei
+  logout() {
+    this.authenticationService.logout();
+  }
 
   ngOnInit() {
     this.createForm();
@@ -32,13 +40,16 @@ export class HomeComponent implements OnInit {
   createForm() {
     this.subCatesForm = this.fb.group({
       subCate: ['', Validators.required]
-    })
+    });
   }
 
   showSubCate(cate) {
     this.subCateHttpService.getSubCate(cate).subscribe(
-      (resp) => { this.subCates = <SubCategory[]>resp; console.log(this.subCates);}
-    )
+      (resp) => {
+        this.subCates = <SubCategory[]> resp;
+        console.log(this.subCates);
+      }
+    );
   }
 
   // onSearch() {
@@ -49,11 +60,11 @@ export class HomeComponent implements OnInit {
     if (this.subCatesForm.invalid) {
       return;
     }
-    let id = this.subCates.find(cate => cate.name === this.subCatesForm.controls.subCate.value).id;
+    const id = this.subCates.find(cate => cate.name === this.subCatesForm.controls.subCate.value).id;
     console.log(typeof id);
     this.sharedService.searchProduct(id);
     this.router.navigate(['/products']);
   }
 
-  
+
 }
