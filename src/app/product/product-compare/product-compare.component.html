@@ -1,3 +1,13 @@
-<p>
-  product-compare works!
-</p>
+<table class="table table-bordered table-striped">
+  <tr>
+    <th></th>
+    <th *ngFor="let product of productsToCompare" class="img-center"><img src="https://media.mitre10.com.au/media/catalog/product/cache/1/small_image/250x250/9df78eab33525d08d6e5fb8d27136e95/C/W/CWF121.jpg"></th>
+  </tr>
+  <tr>
+    <td>Description</td>
+  </tr>
+  <tr *ngFor="let attr of attributes">
+    <td>{{attr}}</td>
+    <td *ngFor="let product of productsToCompare" class="content">{{product[attr]}}</td>
+  </tr>
+</table>

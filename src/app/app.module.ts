@@ -25,6 +25,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SubCateHttpService } from './services/subCate-http.service';
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { SharedService } from './services/shared.service';
+import { KeysPipe } from './pipes/keys.pipe';
+import { ProductService } from './product/product.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { SharedService } from './services/shared.service';
     ProductDetailComponent,
     ProductCompareComponent,
     ProductFilterComponent,
-    ProductListComponent
+    ProductListComponent,
+    KeysPipe
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,7 @@ import { SharedService } from './services/shared.service';
   providers: [ProductHttpService, AuthenticationService, AuthGuard, NgModule,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-             SubCateHttpService, SharedService,
+             SubCateHttpService, SharedService,KeysPipe, ProductService
   ],
   bootstrap: [AppComponent]
 })
