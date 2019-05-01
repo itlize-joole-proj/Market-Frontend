@@ -24,6 +24,7 @@ import { SubCateHttpService } from './services/subCate-http.service';
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { SharedService } from './services/shared.service';
 import { KeysPipe } from './pipes/keys.pipe';
+import { ProductService } from './product/product.service';
 
 
 @NgModule({
@@ -49,7 +50,7 @@ import { KeysPipe } from './pipes/keys.pipe';
   providers: [ProductHttpService, AuthenticationService, AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-             SubCateHttpService, SharedService,KeysPipe
+             SubCateHttpService, SharedService,KeysPipe, ProductService
   ],
   bootstrap: [AppComponent]
 })

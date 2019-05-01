@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ProductHttpService } from '../../services/product-http.service';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -13,12 +14,13 @@ import { ProductService } from '../product.service';
 export class ProductListComponent implements OnInit {
 
   private products: any;
-  private productsToCompare: any;
+  private productsToCompare: any = [];
 
   constructor(private sharedService: SharedService,
     private http: HttpClient,
     private productHttpServie: ProductHttpService,
-    private productService: ProductService) { 
+    private productService: ProductService,
+    private router: Router) { 
       // this.products.push(new Product(3));
       // productService.products$.subscribe(item => {
       //   this.products = item;
@@ -37,7 +39,9 @@ export class ProductListComponent implements OnInit {
       this.products = res;
       console.log(this.products)
 
-    })
+    });
+
+    
     // this.productService.products$.subscribe(item => {
     //   this.products = item;
     //   console.log(item);
@@ -47,4 +51,28 @@ export class ProductListComponent implements OnInit {
     // console.log(this.products + 'on');
   }
 
+  handleCheckbox(event, product) {
+      if(event.target.checked) {
+        this.productsToCompare.push(product);
+      } else {
+        this.productsToCompare = this.productsToCompare.filter(
+          item => item !== product
+        )
+      }
+      console.log(this.productsToCompare);
+  }
+
+  handleCompare() {
+    this.productsToCompare = this.productsToCompare.map(
+      item => {
+        let description: string[] = item.description.split('/');
+        item['Manufacturer'] = description[0];
+        item['Series'] = description[1];
+        item['Model'] = description[2];
+        return item;
+      }
+    );
+    this.productService.compareProducts(this.productsToCompare);
+    this.router.navigate(['compare']);
+  }
 }

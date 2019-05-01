@@ -9,11 +9,12 @@
                <div class="caption">
                   <h5 class="card-title align-center" *ngFor="let s of product.description.split('/')">{{s}}</h5>
                   <p class="align-center" *ngFor="let attr of product.attributes | keys">{{attr}}: {{product.attributes[attr]}}</p>
-                  <input type="checkbox" (change)="handleCheckbox($event)"> Compare
+                  <input type="checkbox" (change)="handleCheckbox($event, product)"> Compare
               </div>
           </div>
       </div>
   </div>
 </div>
+<button *ngIf="productsToCompare.length > 0" class="btn btn-primary" (click)="handleCompare()">Compare</button>
 
 
