@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ProductHttpService } from 'src/app/services/product-http.service';
+import { AttributeType } from 'src/app/models/attributeType.model';
 import { Attribute } from 'src/app/models/attribute.model';
-import { AttributeDetails } from 'src/app/models/attributeDetail.model';
+
+import { FormBuilder } from '@angular/forms';
+import { DOCUMENT } from '@angular/common';
+
+import { Filter } from 'src/app/models/filter.model';
 
 @Component({
   selector: 'app-product-filter',
@@ -10,43 +15,102 @@ import { AttributeDetails } from 'src/app/models/attributeDetail.model';
 })
 export class ProductFilterComponent implements OnInit {
 
-  attributes: Attribute[];
-  attributeDetails: AttributeDetails[];
+  attributes: AttributeType[];
+  attributeDetails: Attribute[];
   filter = {};
+  rangeFilterList;
+  filterData = {};
+  subId = '1';
 
-  constructor(private productService: ProductHttpService) { }
-
+  constructor(private productService: ProductHttpService,
+              private formBuilder: FormBuilder,
+              @Inject(DOCUMENT) document) { }
+  // test: Filter = new Filter(10, 20);
   ngOnInit() {
     this.getAttributeDetails();
-    this.getFilterAttributes();
+    // this.getFilterAttributes();
+  }
+
+  onFilterSubmit() {
+    console.log("Submit Filter");
+    // const test = <HTMLInputElement>document.getElementById("left");
+    // console.log(test.value);
+    this.rangeFilterList.forEach(
+      element=>{
+        // each filt element
+        const leftId = 'left-' + element.attributeName;
+        const rightId = 'right-' + element.attributeName;
+        const leftVal = <HTMLInputElement>document.getElementById(leftId);
+        const rightVal = <HTMLInputElement>document.getElementById(rightId);
+        if (leftVal !== null && rightVal != null) {
+          const temp = {};
+          temp["min"] = Number(leftVal.value);
+          temp["max"] = Number(rightVal.value);
+          this.filterData[String(element.attributeName).replace(' ', '')] = temp;
+        }
+      }
+    )
+    // console.log(JSON.stringify(this.filterData))
+    // localStorage.setItem("filter", JSON.stringify(this.filterData));
+    this.getProductsOfFilter(this.filterData);
+  }
+
+  getProductsOfFilter(filterData: any) {
+    console.log("products from filter");
+    // console.log(filterData);
+    this.productService.getProductsFromFilter(this.subId, filterData)
+    .subscribe(
+      data => {
+        console.log(data);
+      },
+      err => {
+        console.log(err);
+      },
+      () => console.log("filter result complete...")
+    )
   }
 
   getFilterAttributes() {
-    this.productService.getFilterAttributes().subscribe(
+    this.productService.getFilterAttributes()
+    .subscribe(
       data => {
         this.attributes = data;
         data.forEach(element => {
           // console.log(element)
-          this.filter[element.attributeTypeName] =
-                    this.attributeDetails.filter(data=>data.attributeTypeId===element.attributeTypeID);
+          if (this.attributeDetails !== undefined) {
+            this.filter[element.attributeTypeName] =
+                      this.attributeDetails.filter(data=>data.attributeTypeId===element.attributeTypeID);
+          }
         });
-      }
+      },
+      err => {},
+      // () => console.log('Observer got a complete notification'),
     );
   }
 
   getAttributeDetails() {
-    this.productService.getFilterAttributeDetails('1').subscribe(
-      data => {this.attributeDetails = data;}
+    this.productService.getFilterAttributeDetails(this.subId).subscribe(
+      data => {
+        this.attributeDetails = data;
+        if (this.attributeDetails !== null && this.attributeDetails !== undefined) {
+          this.rangeFilterList = this.attributeDetails.filter(data=>data.isRange === 1);
+          this.attributeDetails.forEach(
+            data=>{data['rangeSlider']=new Filter(data.minValue, data.maxValue)}
+          )
+          // console.log(this.rangeFilterList)
+        } else {
+          console.log("Refreshing...")
+          window.location.reload();
+        }
+      },
+      err => {console.log(err)},
+      () => this.getFilterAttributes(),
     );
   }
 
   show() {
     console.log(this.attributes);
-    console.log(this.attributeDetails)
-    console.log(this.attributeDetails.forEach(
-      data=>console.log(data.maxValue)
-    ));
-    // this.buildFilter()
+    console.log(this.attributeDetails);
   }
 
 }
