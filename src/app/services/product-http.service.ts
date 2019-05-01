@@ -2,15 +2,12 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-
-
-import { Attribute } from '../models/attribute.model';
 import { Observable, of, pipe} from 'rxjs';
 import { AttributeType } from '../models/attributeType.model';
 
 import { catchError, map, tap } from 'rxjs/operators';
 import { Attribute } from '../models/attribute.model';
-import { Product } from '../models/produnt.model';
+
 
 const url = "http://localhost:8080/MarketApp";
 
@@ -31,7 +28,7 @@ export class ProductHttpService implements OnInit {
     console.log('Product http service working...');
   }
 
-  getFilterAttributes(): Observable<Attribute[]> {
+  getFilterAttributes(): Observable<AttributeType[]> {
     const category_url = `${url}/attributePart`;
     return this.httpService.get<AttributeType[]>(category_url)
         .pipe(
