@@ -1,9 +1,12 @@
 import {Injectable, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+
+
+import { BehaviorSubject } from 'rxjs';
 
 import { Observable, of, pipe, Subject, BehaviorSubject } from 'rxjs';
 import { Attribute } from '../models/attribute.model';
 import { catchError, map, tap } from 'rxjs/operators';
+
 
 const url = "http://localhost:8080/MarketApp";
 
@@ -22,7 +25,7 @@ export class ProductService implements OnInit {
 
     updateProducts(products: Product[]) {
         this.productsSource.next(products);
-        console.log("product service");
+        // console.log("product service");
     }
 
     compareProducts(compares: []) {

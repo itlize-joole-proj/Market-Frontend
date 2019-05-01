@@ -8,11 +8,12 @@ import { AttributeType } from '../models/attributeType.model';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Attribute } from '../models/attribute.model';
 
+import { Product } from '../models/product.model'
+
 
 import {baseUrl, setting} from '../services/environment';
 
 import { setting } from '../services/environment';
-import { Product } from '../models/product.model';
 
 const url = 'http://localhost:8080/MarketApp';
 
@@ -62,8 +63,8 @@ export class ProductHttpService implements OnInit {
     let options = {
       headers: httpHeaders
     };
-    console.log(filterData)
-    return this.httpService.post<any>(product_filter_url, JSON.stringify(filterData), options)
+    console.log(filterData);
+    return this.httpService.post<Product[]>(product_filter_url, filterData, options)
             .pipe(
               tap(res => this.log('Get Data: ' + res)),
               catchError(this.handleError<Product[]>('Error in get products of filter', []))
@@ -87,7 +88,7 @@ export class ProductHttpService implements OnInit {
   private log(message: string) {
     // this.messageService.add(`HeroService: ${message}`);
 
-    console.log("error" + message)  
+    console.log("error" + message)
   }
 
 
