@@ -35,20 +35,20 @@ export class ProductListComponent implements OnInit {
 
 
   ngOnInit() {
-    this.http.get('http://localhost:8080/MarketApp/subcate/1/products').subscribe(res=> {
-      this.products = res;
-      console.log(this.products)
+    // this.http.get('http://localhost:8080/MarketApp/subcate/1/products').subscribe(res=> {
+    //   this.products = res;
+    //   console.log(this.products)
 
-    });
+    // });
 
     
-    // this.productService.products$.subscribe(item => {
-    //   this.products = item;
-    //   console.log(item);
-    //   console.log(this.products);
-    //   console.log("list service");
-    // });
-    // console.log(this.products + 'on');
+    this.productService.products$.subscribe(item => {
+      this.products = item;
+      console.log(item);
+      console.log(this.products);
+      console.log("list service");
+    });
+    console.log(this.products);
   }
 
   handleCheckbox(event, product) {
