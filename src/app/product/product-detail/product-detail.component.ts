@@ -16,12 +16,17 @@ export class ProductDetailComponent implements OnInit {
   public product: any;
   public manufacturer: any;
   public sales: any;
+  cur_product: Product;
+  manufatureId: string;
+  saleId: string;
+  subCateId: string;
+
+  tech_spec_title: any;
 
   constructor(private productHttpService: ProductHttpService,
               // private sharedService: SharedService,
               private route: ActivatedRoute,
               private location: Location) {
-
   }
 
   ngOnInit() {
@@ -32,23 +37,17 @@ export class ProductDetailComponent implements OnInit {
   }
 
   fetchProductData() {
-    const productSummary = this.service.getProductSummary(1);
+    const productSummary = this.productHttpService.getProductSummary(1);
     const productSummarysubs = productSummary.subscribe(response => {
       this.product = response;
       console.log(this.product);
       console.log(typeof (this.product));
     // this.fetchData();
     this.getProduct();
+    });
   }
 
-  cur_product: Product;
-  manufatureId: string;
-  saleId: string;
-  subCateId: string;
-
-  tech_spec_title: any;
-
-  public getProduct() {
+   getProduct() {
     const id = +this.route.snapshot.paramMap.get('id');
     // console.log(id);
     this.productHttpService.getProductById(Number(id))
@@ -75,8 +74,8 @@ export class ProductDetailComponent implements OnInit {
   fetchData() {
     const productSummary = this.productHttpService.getProductSummary(1);
     const productSummarysubs =  productSummary.subscribe(response => {
-      this.data = response;
-      console.log(this.data);
+      this.product = response;
+      console.log(this.product);
     });
     console.log(productSummary);
     console.log(productSummarysubs);
@@ -85,14 +84,14 @@ export class ProductDetailComponent implements OnInit {
 
   fetchSalesData() {
     console.log(this.product.saleId);
-    this.service.getSales(this.product['saleId']).subscribe(response => {
+    this.productHttpService.getSales(1).subscribe(response => {
       this.sales = response;
       console.log(this.sales);
     });
   }
 
   fetchManufacturerData() {
-    this.service.getManufacturer(this.product.manufacturerId).subscribe(response => {
+    this.productHttpService.getManufacturer(this.product.manufacturerId).subscribe(response => {
       this.manufacturer = response;
       console.log(this.manufacturer);
     });

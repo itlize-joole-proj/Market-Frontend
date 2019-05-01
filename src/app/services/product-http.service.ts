@@ -1,7 +1,3 @@
-import {Injectable, OnInit} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, of, pipe} from 'rxjs';
-import {AttributeType} from '../models/attributeType.model';
 
 
 import { Injectable, OnInit } from '@angular/core';
@@ -130,26 +126,6 @@ export class ProductHttpService implements OnInit {
     return this.httpService.get(baseUrl + `/products/${productID}`);
   }
 
-
-  private handleError<T>(operation = "operation", result?: T) {
-    return (error: any): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
-
-  /** Log a HeroService message with the MessageService */
-  private log(message: string) {
-    // this.messageService.add(`HeroService: ${message}`);
-
-    console.log("error" + message)
-  }
 
   // getProductSummary2(productID: number) {
   //   return new Promise(resolve => {
