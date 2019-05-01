@@ -10,6 +10,7 @@ import { AuthGuard } from './guards/AuthGuard';
 
 const routes: Routes = [
   // { path: '', redirectTo: 'login', pathMatch: 'full', canActivate: [AuthGuardService] },
+
   { path: '', component: HomeComponent},
   { path: 'products', component: ProductComponent, children: [
       { path: ':id', component: ProductDetailComponent },
@@ -22,7 +23,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

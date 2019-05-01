@@ -1,3 +1,4 @@
+
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
@@ -20,6 +21,10 @@ import { AuthGuard } from './guards/AuthGuard';
 import { ProductFilterComponent } from './product/product-filter/product-filter.component';
 
 import { Ng5SliderModule } from 'ng5-slider';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { SubCateHttpService } from './services/subCate-http.service';
+import { ProductListComponent } from './product/product-list/product-list.component';
+import { SharedService } from './services/shared.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +35,8 @@ import { Ng5SliderModule } from 'ng5-slider';
     SignupComponent,
     ProductDetailComponent,
     ProductCompareComponent,
-    ProductFilterComponent
+    ProductFilterComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +48,12 @@ import { Ng5SliderModule } from 'ng5-slider';
   ],
   providers: [ProductHttpService, AuthenticationService, AuthGuard, NgModule,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+             SubCateHttpService, SharedService,
+  ],
+  imports: [
+    BrowserModule, HttpClientModule, AppRoutingModule, ReactiveFormsModule, FormsModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { Observable, of } from 'rxjs';
 import { AttributeType } from '../models/attributeType.model';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -8,10 +9,13 @@ import { Product } from '../models/produnt.model';
 
 const url = "http://localhost:8080/MarketApp";
 
+import { setting } from '../services/environment';
+
+
 @Injectable()
 export class ProductHttpService implements OnInit {
 
-  constructor(private httpService: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
 
@@ -21,7 +25,7 @@ export class ProductHttpService implements OnInit {
     console.log("Product http service working...");
   }
 
-  getFilterAttributes(): Observable<AttributeType[]> {
+  getFilterAttributes(): Observable<Attribute[]> {
     const category_url = `${url}/attributePart`;
     return this.httpService.get<AttributeType[]>(category_url)
         .pipe(
@@ -72,7 +76,10 @@ export class ProductHttpService implements OnInit {
   /** Log a HeroService message with the MessageService */
   private log(message: string) {
     // this.messageService.add(`HeroService: ${message}`);
-    console.log("erroe" + message);
+    console.log("erroe" + message)
+
+  getProducts(subCateId: number) {
+    return this.http.get(setting.url + `/subcate/${subCateId}/products`);
   }
 
 }

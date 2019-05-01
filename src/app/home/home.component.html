@@ -1,3 +1,18 @@
 <p>
   home works!
 </p>
+<select (change)='showSubCate($event.target.value)' name="cate" >
+  <option value='All'>--All--</option>
+  <option *ngFor="let cate of cates" [value]="cate">{{cate}}</option>
+</select>
+
+<form [formGroup]="subCatesForm" (submit)="onSubmit()">
+  <input list="SubCates" name="subCate" formControlName="subCate"/> 
+  <datalist id="SubCates"  name="subCateList" >
+    <option *ngFor="let subcate of subCates" [ngValue]="subcate">{{subcate.name}}</option>
+  </datalist>
+  <button type="submit">Search</button>
+</form>
+
+  <!-- <button (click)="testClick($event)">Test</button> -->
+
