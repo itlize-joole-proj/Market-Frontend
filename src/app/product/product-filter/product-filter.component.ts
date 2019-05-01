@@ -33,8 +33,6 @@ export class ProductFilterComponent implements OnInit {
 
   onFilterSubmit() {
     console.log("Submit Filter");
-    // const test = <HTMLInputElement>document.getElementById("left");
-    // console.log(test.value);
     this.rangeFilterList.forEach(
       element=>{
         // each filt element
@@ -46,19 +44,18 @@ export class ProductFilterComponent implements OnInit {
           const temp = {};
           temp["min"] = Number(leftVal.value);
           temp["max"] = Number(rightVal.value);
+          // console.log(String(element.attributeName));
           this.filterData[String(element.attributeName).replace(' ', '')] = temp;
         }
       }
     )
-    // console.log(JSON.stringify(this.filterData))
-    // localStorage.setItem("filter", JSON.stringify(this.filterData));
-    this.getProductsOfFilter(this.filterData);
+    // save filter data into localStorage, easy for sibling get the data
+    localStorage.setItem("filter", JSON.stringify(this.filterData));
+    this.getProductsOfFilter();
   }
 
-  getProductsOfFilter(filterData: any) {
-    console.log("products from filter");
-    // console.log(filterData);
-    this.productService.getProductsFromFilter(this.subId, filterData)
+  getProductsOfFilter() {
+    this.productService.getProductsFromFilter(this.subId, localStorage.getItem('filter'))
     .subscribe(
       data => {
         console.log(data);
@@ -106,11 +103,6 @@ export class ProductFilterComponent implements OnInit {
       err => {console.log(err)},
       () => this.getFilterAttributes(),
     );
-  }
-
-  show() {
-    console.log(this.attributes);
-    console.log(this.attributeDetails);
   }
 
 }

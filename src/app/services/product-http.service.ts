@@ -48,8 +48,8 @@ export class ProductHttpService implements OnInit {
     let options = {
       headers: httpHeaders
     };
-    console.log(filterData)
-    return this.httpService.post<any>(product_filter_url, JSON.stringify(filterData), options)
+    console.log(filterData);
+    return this.httpService.post<Product[]>(product_filter_url, filterData, options)
             .pipe(
               tap(res => this.log('Get Data: ' + res)),
               catchError(this.handleError<Product[]>('Error in get products of filter', []))
