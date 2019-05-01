@@ -2,24 +2,34 @@ import { Component, OnInit } from '@angular/core';
 import { SharedService } from '../services/shared.service';
 import { HttpClient } from '@angular/common/http';
 import { ProductHttpService } from '../services/product-http.service';
+import { Product } from '../models/product.model';
+import { ProductService } from './product.service';
 
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  styleUrls: ['./product.component.css'],
+  providers:[ProductService]
 })
 export class ProductComponent implements OnInit {
 
   subCateId: number;
+  products: Product[];
 
   constructor(private sharedService: SharedService,
               private http: HttpClient,
-              private productHttpServie: ProductHttpService) { 
+              private productHttpServie: ProductHttpService,
+              private productService: ProductService) { 
+
     this.sharedService.subCate$.subscribe(id => {
       this.subCateId = id;
-      productHttpServie.getProducts(id).subscribe(data => console.log(data));
-    })
+      productHttpServie.getProducts(id).subscribe(
+        data => {
+          this.products = data;
+          productService.updateProducts(data);
+          });
+    });
   }
 
   ngOnInit() {

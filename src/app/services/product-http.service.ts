@@ -1,7 +1,7 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, pipe } from 'rxjs';
 import { Attribute } from '../models/attribute.model';
 import { catchError, map, tap } from 'rxjs/operators';
 import { AttributeDetails } from '../models/attributeDetail.model';
@@ -9,6 +9,7 @@ import { AttributeDetails } from '../models/attributeDetail.model';
 const url = "http://localhost:8080/MarketApp";
 
 import { setting } from '../services/environment';
+import { Product } from '../models/product.model';
 
 
 @Injectable()
@@ -62,9 +63,25 @@ export class ProductHttpService implements OnInit {
     console.log(message);
   }
 
-  getProducts(subCateId: number) {
-    return this.httpService.get(setting.url + `/subcate/${subCateId}/products`);
-
+  getProducts(subCateId: number): Observable<Product[]> {
+    return this.httpService.get<Product[]>(setting.url + `/subcate/${subCateId}/products`)
+              .pipe(map(res => res.map(item => new Product(item))));
   }
+
+  // getSubCate(cateName: string): Observable<SubCategory[]>{
+
+  //   return this.http.get<SubCategory[]>('http://localhost:8080/MarketApp' + `/Category/${cateName}/SubCates`)
+  //   // .pipe(map(res => res.map((item) => new SubCategory(
+  //   //     item.SubCategoryName,
+  //   //     item.SubCategoryID,
+  //   //     item.CategoryID
+  //   // ))));
+  //   // .pipe(map(res => res.map(item => new SubCategory(
+  //   //     item.SubCategoryName,
+  //   //      item.SubCategoryID,
+  //   //      item.CategoryID
+  //   // ))));
+  //   .pipe(map(res => res.map(item => new SubCategory(item))));
+
 
 }
