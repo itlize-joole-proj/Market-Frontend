@@ -11,7 +11,6 @@ import {SignupComponent} from './signup/signup.component';
 import {ProductDetailComponent} from './product/product-detail/product-detail.component';
 import {ProductCompareComponent} from './product/product-compare/product-compare.component';
 
-
 import { ProductHttpService } from "./services/product-http.service";
 import { AuthenticationService } from "./services/authentication.service";
 import { JwtInterceptor } from './interceptor/jwtInterceptor';

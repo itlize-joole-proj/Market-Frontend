@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './guards/AuthGuard';
 
 const routes: Routes = [
+
   { path: '', redirectTo: 'home', pathMatch: 'full', canActivate: [AuthGuard] },
 
   { path: 'products', component: ProductComponent, canActivate: [AuthGuard]  },
@@ -19,7 +20,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'productDetail', component: ProductDetailComponent, canActivate: [AuthGuard] }, // Wei
   { path: '**', redirectTo: '', canActivate: [AuthGuard] }
-  
+
 ];
 
 @NgModule({

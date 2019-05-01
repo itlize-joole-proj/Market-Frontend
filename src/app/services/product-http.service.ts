@@ -8,11 +8,10 @@ import { AttributeType } from '../models/attributeType.model';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Attribute } from '../models/attribute.model';
 
-import { Product } from '../models/product.model'
+import { Product } from '../models/product.model';
 
 
 import {baseUrl, setting} from '../services/environment';
-
 
 const url = 'http://localhost:8080/MarketApp';
 
@@ -62,13 +61,41 @@ export class ProductHttpService implements OnInit {
     let options = {
       headers: httpHeaders
     };
-    console.log(filterData);
+    // console.log(filterData);
     return this.httpService.post<Product[]>(product_filter_url, filterData, options)
             .pipe(
               tap(res => this.log('Get Data: ' + res)),
               catchError(this.handleError<Product[]>('Error in get products of filter', []))
             );
   }
+
+  getProducts(subCateId: number): Observable<Product[]> {
+    return this.httpService.get<Product[]>(setting.url + `/subcate/${subCateId}/products`)
+              .pipe(map(res => res.map(item => new Product(item))));
+
+  }
+
+  getProductById(productID: number): Observable<Product> {
+    const product_url = `${url}/products/${productID}`;
+    return this.httpService.get<Product>(product_url)
+            .pipe(catchError(this.handleError<Product>('Error in getting product by id')));
+  }
+
+  // Wei
+  getProductSummary(productID: number) {
+
+    // // let productSummary;
+    // this.httpService.get(baseUrl + `/products/${productID}`, {responseType: 'json'}).subscribe(response => {
+    //   this.data = response;
+    //   const productSummary = JSON.stringify(response);
+    //   console.log(productSummary);
+    //   return productSummary;
+    // });
+
+    // return oberservable
+    return this.httpService.get(baseUrl + `/products/${productID}`);
+  }
+
 
   private handleError<T>(operation = "operation", result?: T) {
     return (error: any): Observable<T> => {
@@ -88,29 +115,6 @@ export class ProductHttpService implements OnInit {
     // this.messageService.add(`HeroService: ${message}`);
 
     console.log("error" + message)
-  }
-
-
-  getProducts(subCateId: number): Observable<Product[]> {
-    return this.httpService.get<Product[]>(setting.url + `/subcate/${subCateId}/products`)
-              .pipe(map(res => res.map(item => new Product(item))));
-
-  }
-
-
-  // Wei
-  getProductSummary(productID: number) {
-
-    // // let productSummary;
-    // this.httpService.get(baseUrl + `/products/${productID}`, {responseType: 'json'}).subscribe(response => {
-    //   this.data = response;
-    //   const productSummary = JSON.stringify(response);
-    //   console.log(productSummary);
-    //   return productSummary;
-    // });
-
-    // return oberservable
-    return this.httpService.get(baseUrl + `/products/${productID}`);
   }
 
   // getProductSummary2(productID: number) {

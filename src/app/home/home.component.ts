@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
     this.subCateHttpService.getSubCate(cate).subscribe(
       (resp) => {
         this.subCates = <SubCategory[]> resp;
-        console.log(this.subCates);
+        // console.log(this.subCates);
       }
     );
   }
