@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ProductHttpService} from '../../services/product-http.service';
+
 
 @Component({
   selector: 'app-product-detail',
@@ -7,9 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductDetailComponent implements OnInit {
 
-  constructor() { }
+  // Global Variable
+  public data: any;
+
+  constructor(private service: ProductHttpService) {
+
+  }
 
   ngOnInit() {
+    this.fetchData();
+
+  }
+
+  fetchData() {
+    const productSummary = this.service.getProductSummary(1);
+    const productSummarysubs =  productSummary.subscribe(response => {
+      this.data = response;
+      console.log(this.data);
+    });
+    console.log(productSummary);
+    console.log(productSummarysubs);
+
   }
 
 }

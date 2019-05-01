@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { AuthenticationService } from './services/authentication.service';
+import {Component} from '@angular/core';
+import {AuthenticationService} from './services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +8,8 @@ import { AuthenticationService } from './services/authentication.service';
 })
 export class AppComponent {
   title = 'Market-Frontend';
-  constructor(private authenticationService: AuthenticationService) { }
 
-  logout() {
-    this.authenticationService.logout();
+  constructor() {
   }
+
 }

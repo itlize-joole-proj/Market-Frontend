@@ -1,7 +1,12 @@
 <!--Wei Chen  4.29-->
-<div class="jumbotron">
+
+<!DOCTYPE html>
+<html>
+<body>
+<nav>
+  <a id="login" routerLink="/login">Login</a>
+</nav>
   <div class="container">
-    <div class="row">
       <div class="col-md-6 offset-md-3">
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <div class="form-group">
@@ -59,9 +64,9 @@
           </div>
         </form>
       </div>
-    </div>
   </div>
-</div>
+</body>
+</html>
 
 
 <!--<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="text-center border border-light p-5">-->
