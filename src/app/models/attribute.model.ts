@@ -1,4 +1,8 @@
 export class Attribute {
-  attributeTypeID: number;
-  attributeTypeName: string;
+  attributeTypeId: number;
+  attributeName: string;
+  isRange: number;
+  minValue: number;
+  maxValue: number;
+  subCategoryId: string;
 }
