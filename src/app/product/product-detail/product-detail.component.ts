@@ -23,13 +23,13 @@ export class ProductDetailComponent implements OnInit {
 
   fetchData() {
     const productSummary = this.service.getProductSummary(1);
-    const productSummarysubs =  productSummary.subscribe(response => {
+    const productSummarysubs = productSummary.subscribe(response => {
       this.data = response;
       console.log(this.data);
+      console.log(typeof (this.data));
     });
     console.log(productSummary);
     console.log(productSummarysubs);
-
   }
 
 }
