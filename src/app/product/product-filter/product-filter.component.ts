@@ -8,6 +8,7 @@ import { DOCUMENT } from '@angular/common';
 
 import { Filter } from 'src/app/models/filter.model';
 import { ProductService } from '../product.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-product-filter',
@@ -24,7 +25,7 @@ export class ProductFilterComponent implements OnInit {
   subId = '1';
 
   constructor(private productService: ProductHttpService,
-              private formBuilder: FormBuilder,
+              // private sharedService: SharedService,
               private productS: ProductService,
               @Inject(DOCUMENT) document) { }
   // test: Filter = new Filter(10, 20);
@@ -34,7 +35,7 @@ export class ProductFilterComponent implements OnInit {
   }
 
   onFilterSubmit() {
-    console.log("Submit Filter");
+    // console.log("Submit Filter");
     this.rangeFilterList.forEach(
       element=>{
         // each filt element
@@ -61,10 +62,10 @@ export class ProductFilterComponent implements OnInit {
     .subscribe(
       data => {
         this.productS.updateProducts(data);
-        console.log(data);
+        // console.log(data);
       },
       err => {
-        console.log(err);
+        console.log("Filter error: " + err);
       },
       () => console.log("filter result complete...")
     )
@@ -84,7 +85,7 @@ export class ProductFilterComponent implements OnInit {
         });
       },
       err => {},
-      // () => console.log('Observer got a complete notification'),
+      // () => console.log(this.filter),
     );
   }
 
@@ -98,10 +99,10 @@ export class ProductFilterComponent implements OnInit {
             data=>{data['rangeSlider']=new Filter(data.minValue, data.maxValue)}
           )
           // console.log(this.rangeFilterList)
-        } else {
-          console.log("Refreshing...")
-          window.location.reload();
+          // Save attributeDetails to service and call it in the product detail component
+          // this.sharedService.setCurentSubCateTech(this.attributeDetails);
         }
+        // console.log(this.attributeDetails)
       },
       err => {console.log(err)},
       () => this.getFilterAttributes(),

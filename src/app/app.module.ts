@@ -12,23 +12,26 @@ import {SignupComponent} from './signup/signup.component';
 import {ProductDetailComponent} from './product/product-detail/product-detail.component';
 import {ProductCompareComponent} from './product/product-compare/product-compare.component';
 
-import {ProductHttpService} from './services/product-http.service';
-import {AuthenticationService} from './services/authentication.service';
-import {JwtInterceptor} from './interceptor/jwtInterceptor';
-import {ErrorInterceptor} from './interceptor/errorInterceptor';
-import {AuthGuard} from './guards/AuthGuard';
-import {ProductFilterComponent} from './product/product-filter/product-filter.component';
-
-import {Ng5SliderModule} from 'ng5-slider';
-import {ReactiveFormsModule, FormsModule} from '@angular/forms';
-import {SubCateHttpService} from './services/subCate-http.service';
-import {ProductListComponent} from './product/product-list/product-list.component';
-import {SharedService} from './services/shared.service';
-import {KeysPipe} from './pipes/keys.pipe';
-import {ProductService} from './product/product.service';
 
 
 
+
+
+import { ProductHttpService } from "./services/product-http.service";
+import { AuthenticationService } from "./services/authentication.service";
+import { JwtInterceptor } from './interceptor/jwtInterceptor';
+import { ErrorInterceptor } from './interceptor/errorInterceptor';
+import { AuthGuard } from './guards/AuthGuard';
+import { ProductFilterComponent } from './product/product-filter/product-filter.component';
+
+import { Ng5SliderModule } from 'ng5-slider';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { SubCateHttpService } from './services/subCate-http.service';
+import { ProductListComponent } from './product/product-list/product-list.component';
+import { SharedService } from './services/shared.service';
+import { KeysPipe } from './pipes/keys.pipe';
+import { ProductService } from './product/product.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -55,9 +58,11 @@ import {ProductService} from './product/product.service';
   ],
 
   providers: [ProductHttpService, AuthenticationService, AuthGuard, NgModule,
-    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    SubCateHttpService, SharedService, KeysPipe, ProductService
+
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+             SubCateHttpService, SharedService,KeysPipe, ProductService
+
   ],
   bootstrap: [AppComponent]
 })

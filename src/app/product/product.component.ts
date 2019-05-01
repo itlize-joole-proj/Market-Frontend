@@ -20,7 +20,6 @@ export class ProductComponent implements OnInit {
 
   constructor(private sharedService: SharedService,
               private http: HttpClient,
-
               private productHttpServie: ProductHttpService,
               private productService: ProductService) {
               }
