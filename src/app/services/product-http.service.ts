@@ -2,15 +2,12 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-
-
-import { Attribute } from '../models/attribute.model';
 import { Observable, of, pipe} from 'rxjs';
 import { AttributeType } from '../models/attributeType.model';
 
 import { catchError, map, tap } from 'rxjs/operators';
 import { Attribute } from '../models/attribute.model';
-import { Product } from '../models/produnt.model';
+
 
 import {baseUrl, setting} from '../services/environment';
 
