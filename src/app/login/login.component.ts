@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { Buyer } from '../models/buyer.model';
-import { ReactiveFormsModule, FormBuilder } from '@angular/forms'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
-    })
+    });
   }
 
   disableForm() {
