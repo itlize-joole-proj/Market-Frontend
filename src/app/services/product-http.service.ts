@@ -13,7 +13,6 @@ import { Product } from '../models/product.model'
 
 import {baseUrl, setting} from '../services/environment';
 
-import { setting } from '../services/environment';
 
 const url = 'http://localhost:8080/MarketApp';
 
