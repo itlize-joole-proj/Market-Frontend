@@ -5,9 +5,11 @@ export class Product {
     manufacturerId: string;
     saleId: number;
     subCategoryID: number;
+    productId: number;
 
     constructor(response: any) {
         this.description = response.description;
         this.attributes = response.attributes;
+        this.productId = response.productId;
     }
 }

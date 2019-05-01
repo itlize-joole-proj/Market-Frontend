@@ -6,8 +6,19 @@
   <tr>
     <td>Description</td>
   </tr>
-  <tr *ngFor="let attr of attributes">
+  <tr *ngFor="let attr of descriptions">
     <td>{{attr}}</td>
     <td *ngFor="let product of productsToCompare" class="content">{{product[attr]}}</td>
   </tr>
+  <tr>
+    <td>Technical Specifications</td>
+  </tr>
+  <tr *ngFor="let attr of attributes">
+    <td >{{attr}}</td>
+    <td *ngFor="let product of productsToCompare" class="content">{{product.attributes[attr]}}</td>
+  </tr>
+  <!-- <tr>
+    <td>Airflow</td>
+    <td *ngFor="let product of productsToCompare">{{product.attributes.Airflow}}</td>
+  </tr> -->
 </table>

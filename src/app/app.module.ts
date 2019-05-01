@@ -25,6 +25,7 @@ import { ProductListComponent } from './product/product-list/product-list.compon
 import { SharedService } from './services/shared.service';
 import { KeysPipe } from './pipes/keys.pipe';
 import { ProductService } from './product/product.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { ProductService } from './product/product.service';
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
              SubCateHttpService, SharedService,KeysPipe, ProductService
+             
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,7 @@
 import { Injectable, OnInit } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+
+import { Subject, BehaviorSubject } from "rxjs";
+
 
 @Injectable()
 export class SharedService implements OnInit {
