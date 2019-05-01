@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'productDetail', component: ProductDetailComponent, canActivate: [AuthGuard] }, // Wei
   { path: '**', redirectTo: '', canActivate: [AuthGuard] }
   
 ];

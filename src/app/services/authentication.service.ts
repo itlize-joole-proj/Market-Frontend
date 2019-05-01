@@ -1,14 +1,15 @@
+import {Injectable, OnInit} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable, of} from 'rxjs';
 
-import { Injectable, OnInit } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable, of } from "rxjs";
+import {catchError, map, tap} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
-import { catchError, map, tap } from "rxjs/operators";
-const url = "http://localhost:8080/MarketApp";
+const url = 'http://localhost:8080/MarketApp';
 
 @Injectable()
 export class AuthenticationService implements OnInit {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   ngOnInit() {
@@ -55,6 +56,9 @@ export class AuthenticationService implements OnInit {
     const options = {
       headers: httpHeaders
     };
+
+    // use observable, options: instance of Observable that can be later subscribed/updated
+    // another way is to use Promise https://www.concretepage.com/angular-2/angular-2-http-post-example
     return this.http.post<any>('http://localhost:8080/MarketApp/register', JSON.stringify(buyer), options)
       .pipe(map(user => {
         if (user && user.token) {
@@ -62,12 +66,13 @@ export class AuthenticationService implements OnInit {
         }
         return user;
       }));
-    }
+  }
 
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem("currentUser");
-
+    localStorage.removeItem('currentUser');
+    // added by Wei
+    this.router.navigateByUrl('login');
   }
 
   getTest(): void {
@@ -79,7 +84,7 @@ export class AuthenticationService implements OnInit {
   }
 
 
-  private handleError<T>(operation = "operation", result?: T) {
+  private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
