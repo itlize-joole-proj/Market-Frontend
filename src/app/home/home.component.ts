@@ -5,7 +5,7 @@ import {ProductHttpService} from '../services/product-http.service';
 import {ReactiveFormsModule, FormBuilder} from '@angular/forms';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {SharedService} from '../services/shared.service';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {AuthenticationService} from '../services/authentication.service';
 
 @Component({
@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
     const id = this.subCates.find(cate => cate.name === this.subCatesForm.controls.subCate.value).id;
     console.log(typeof id);
     this.sharedService.searchProduct(id);
-    this.router.navigate(['/products']);
+    this.router.navigate([`subCate/${id}/products`]);
   }
 
 

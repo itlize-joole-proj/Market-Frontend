@@ -14,6 +14,7 @@ import { Router } from "@angular/router";
 export class ProductListComponent implements OnInit {
   private products: any;
   private productsToCompare: any = [];
+  @Input('subid') subCateId: number;
 
   constructor(
     private sharedService: SharedService,
@@ -41,6 +42,7 @@ export class ProductListComponent implements OnInit {
         item => item !== product
       );
     }
+    console.log(this.subCateId);
     // console.log(this.productsToCompare);
   }
 
@@ -53,6 +55,6 @@ export class ProductListComponent implements OnInit {
       return item;
     });
     this.productService.compareProducts(this.productsToCompare);
-    this.router.navigate(["compare"]);
+    this.router.navigate([`compare/${this.subCateId}`]);
   }
 }
