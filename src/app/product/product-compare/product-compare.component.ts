@@ -18,6 +18,7 @@ export class ProductCompareComponent implements OnInit {
   descriptions: string[] = ['Manufacturer', 'Series', 'Model'];
   attributes: string[];
   subId = '1';
+  subCateName: string;
 
   constructor(private productService: ProductService,
               private productHttpService: ProductHttpService,
@@ -26,6 +27,7 @@ export class ProductCompareComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.sharedService.subCateName$.subscribe(name => this.subCateName = name);
     this.activedRoute.params.pipe(map(item => item.subCateId))
     .subscribe(id => {this.subId = id; console.log(this.subId)});
     // this.sharedService.subCate$.subscribe(

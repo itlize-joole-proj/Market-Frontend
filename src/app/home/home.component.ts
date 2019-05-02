@@ -58,9 +58,11 @@ export class HomeComponent implements OnInit {
     if (this.subCatesForm.invalid) {
       return;
     }
-    const id = this.subCates.find(cate => cate.name === this.subCatesForm.controls.subCate.value).id;
+    let subCate = this.subCates.find(cate => cate.name === this.subCatesForm.controls.subCate.value);
+    let id = subCate.id;
     console.log(typeof id);
     this.sharedService.searchProduct(id);
+    this.sharedService.emitSubCateName(subCate.name);
     this.router.navigate([`subCate/${id}/products`]);
   }
 

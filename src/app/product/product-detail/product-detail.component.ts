@@ -23,18 +23,20 @@ export class ProductDetailComponent implements OnInit {
 
   product: Product;
   subCateId: string;
+  subCateName: string;
   attributes: any = {};
 
   tech_spec_title: any[] = [];
 
   constructor(private productHttpService: ProductHttpService,
-              // private sharedService: SharedService,
+              private sharedService: SharedService,
               private route: ActivatedRoute,
               private location: Location) {
   }
 
   ngOnInit() {
-    this.getProduct()
+    this.sharedService.subCateName$.subscribe(name => this.subCateName = name);
+    this.getProduct();
   }
 
   getProductAttributesData(subCateId: number, productId: number) {
