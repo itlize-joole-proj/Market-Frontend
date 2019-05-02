@@ -1,101 +1,173 @@
 
+
 <app-header></app-header>
-<div>
 
-  <!--  <table col="500">-->
-  <!--    <tr>-->
-  <!--      <td width="200px">Product Summary</td>-->
-  <!--      <td width="200px">Product Details</td>-->
-  <!--      <td width="200px">Product Documentation</td>-->
-  <!--      <td>Contact</td>-->
-  <!--    </tr>-->
-  <!--  </table>-->
-
-  <div>
-    <h2>Product Summary</h2>
-    <p class="align-center" *ngFor="let item of product | keys">{{item}}: {{product[item]}}</p>
-  </div>
-
-  <div>
-    <h2>Product Details</h2>
-    <table>
-      <thead>
+<div class="info-menu-block">
+  <!-- <label class="info-meu"><a href='{{"/products/" + product.productID + "/#part1"}}'>Product Summary</a></label> -->
+  <label class="info-meu"><a>Product Summary</a></label>
+  <label class="info-meu"><a>Product Details</a></label>
+  <label class="info-meu"><a>Product Documentation</a></label>
+  <label class="info-meu"><a>Contact</a></label>
+  <!-- <label class="info-meu"><a href='{{"/products/" + product.productID + "/#part4"}}'>Contact</a></label> -->
+</div>
+<h2><a id="part1">Product Summary</a></h2>
+<div *ngIf="product && manufacturer">
+  <table class="table table-borderless part1">
+    <tbody>
       <tr>
-        <td>SERIES INFORMATION</td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>{{product.details}}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div>
-    <h2>Product Documentation</h2>
-    <table>
-      <tbody>
-      <tr>
-        <td>Details: {{product.documentUrl}}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div>
-    <h2>Contact</h2>
-    <table id="sales">
-      <thead>
-      <tr>
-        <td>SALES REPRESENTATIVE</td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>Name</td>
-        <td>{{sales.name}}</td>
+        <th>DESCRIPTION</th>
       </tr>
       <tr>
-        <td>Phone</td>
-        <td>{{sales.phone}}</td>
+        <th scope="row" class="row-title">Manufacture</th>
+        <td>{{ product.detailsArray[0] }}</td>
       </tr>
       <tr>
-        <td>Email</td>
-        <td>{{sales.email}}</td>
+        <th scope="row" class="row-title">Series</th>
+        <td>{{ product.detailsArray[1] }}</td>
       </tr>
       <tr>
-        <td>Web</td>
-        <td>{{sales.webUrl}}</td>
-      </tr>
-      </tbody>
-    </table>
-    <table id="manufacturer">
-      <thead>
-      <tr>
-        <td>MANUFACTURER</td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>Department</td>
-        <td>{{manufacturer.department}}</td>
+        <th scope="row" class="row-title">Model</th>
+        <td>{{ product.detailsArray[2] }}</td>
       </tr>
       <tr>
-        <td>Phone</td>
-        <td>{{manufacturer.phone}}</td>
+        <th>Type</th>
       </tr>
       <tr>
-        <td>Email</td>
-        <td>{{manufacturer.email}}</td>
+        <th scope="row" class="row-title">Use Type</th>
+        <td>Commercial</td>
       </tr>
       <tr>
-        <td>Web</td>
-        <td>{{manufacturer.webUrl}}</td>
+        <th scope="row" class="row-title">Application</th>
+        <td>Indoor</td>
       </tr>
-      </tbody>
-    </table>
-  </div>
+      <tr>
+        <th scope="row" class="row-title">Mounting Location</th>
+        <td>Roof</td>
+      </tr>
+      <tr>
+        <th scope="row" class="row-title">Accessories</th>
+        <td>With Light</td>
+      </tr>
+      <tr>
+        <th scope="row" class="row-title">Model year</th>
+        <td>2016</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 
+<div *ngIf="product && manufacturer">
+  <table class="table table-borderless part1">
+    <tbody>
+      <tr>
+        <th>TECHNICAL SPECIFICATION</th>
+      </tr>
+      <tr>
+        <th scope="row" class="row-title">Airflow (CFM)</th>
+        <td>{{ product.detailsArray[0] }}</td>
+      </tr>
+      <tr>
+        <th scope="row" class="row-title">Power (W)</th>
+        <th scope="row" class="sub-row-title">Min</th>
+        <td>{{ product.detailsArray[0] }}</td>
+        <th scope="row" class="sub-row-title">Max</th>
+        <td>{{ product.detailsArray[0] }}</td>
+      </tr>
+      <tr>
+        <th scope="row" class="row-title">Operating vlotage (VAC)</th>
+        <th scope="row" class="sub-row-title">Min</th>
+        <td>{{ product.detailsArray[0] }}</td>
+        <th scope="row" class="sub-row-title">Max</th>
+        <td>{{ product.detailsArray[0] }}</td>
+      </tr>
+      <tr>
+        <th scope="row" class="row-title">Fan speed (RPM)</th>
+        <th scope="row" class="sub-row-title">Min</th>
+        <td>{{ product.detailsArray[0] }}</td>
+        <th scope="row" class="sub-row-title">Max</th>
+        <td>{{ product.detailsArray[0] }}</td>
+      </tr>
+      <tr>
+        <th scope="row" class="row-title">Number of fan speeds</th>
+        <td>{{ product.detailsArray[0] }}</td>
+      </tr>
+      <tr>
+        <th scope="row" class="row-title">Sound at max speed (dBA)</th>
+        <td>{{ product.detailsArray[0] }}</td>
+      </tr>
+      <tr>
+        <th scope="row" class="row-title">Height (in)</th>
+        <th scope="row" class="sub-row-title">Min</th>
+        <td>{{ product.detailsArray[0] }}</td>
+        <th scope="row" class="sub-row-title">Max</th>
+        <td>{{ product.detailsArray[0] }}</td>
+      </tr>
+      <tr>
+        <th scope="row" class="row-title">Weight (lbs)</th>
+        <td>13</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Product Details</h2>
+<table class="table table-borderless part2">
+  <tbody>
+    <tr>
+      <th>SERIES INFORMATION</th>
+    </tr>
+      <tr>
+        <td>{{ product.details }}</td>
+      </tr>
+  </tbody>
+</table>
+
+<h2>Product Documentation</h2>
+<table class="table table-borderless part3">
+  <tbody>
+    <tr>
+      <th>Documentation</th>
+    </tr>
+      <tr>
+        <td>{{ product.documentUrl }}</td>
+      </tr>
+  </tbody>
+</table>
+
+<h2><a id="part4">Contact</a></h2>
+<div *ngIf="sale">
+  <table class="table table-borderless part4">
+    <tbody>
+      <tr>
+        <th>SALES REPRESENTATIVE</th>
+      </tr>
+      <div *ngFor="let title of sale_keys; let i = index">
+        <div *ngIf="i < 4">
+        <tr>
+          <th scope="row" class="row-title">{{title}}</th>
+          <td>{{ sale[title] }}</td>
+        </tr>
+        </div>
+      </div>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="manufacturer">
+  <table class="table table-borderless part4">
+    <tbody>
+      <tr>
+        <th>MANUFACTURER</th>
+      </tr>
+      <div *ngFor="let title of manufacturer_keys; let i = index">
+        <div *ngIf="i < 4">
+        <tr>
+          <th scope="row" class="row-title">{{title}}</th>
+          <td>{{ manufacturer[title] }}</td>
+        </tr>
+        </div>
+      </div>
+    </tbody>
+  </table>
 </div>
