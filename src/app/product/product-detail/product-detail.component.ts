@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductHttpService} from '../../services/product-http.service';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { Product } from 'src/app/models/product.model';
-import { SharedService } from 'src/app/services/shared.service';
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
+import {Product} from 'src/app/models/product.model';
+import {SharedService} from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -30,7 +30,6 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.fetchProductData();
     this.fetchSalesData();
     this.fetchManufacturerData();
@@ -42,12 +41,12 @@ export class ProductDetailComponent implements OnInit {
       this.product = response;
       console.log(this.product);
       console.log(typeof (this.product));
-    // this.fetchData();
-    this.getProduct();
+      // this.fetchData();
+      this.getProduct();
     });
   }
 
-   getProduct() {
+  getProduct() {
     const id = +this.route.snapshot.paramMap.get('id');
     // console.log(id);
     this.productHttpService.getProductById(Number(id))
@@ -61,9 +60,13 @@ export class ProductDetailComponent implements OnInit {
             this.subCateId = String(data.subCategoryID);
           }
         },
-        err => {console.log(err)},
-        () => {this.getTechTitle(this.subCateId);}
-      )
+        err => {
+          console.log(err);
+        },
+        () => {
+          this.getTechTitle(this.subCateId);
+        }
+      );
   }
 
   public getTechTitle(subCateId: string) {
@@ -73,7 +76,7 @@ export class ProductDetailComponent implements OnInit {
 
   fetchData() {
     const productSummary = this.productHttpService.getProductSummary(1);
-    const productSummarysubs =  productSummary.subscribe(response => {
+    const productSummarysubs = productSummary.subscribe(response => {
       this.product = response;
       console.log(this.product);
     });
@@ -84,7 +87,7 @@ export class ProductDetailComponent implements OnInit {
 
   fetchSalesData() {
     console.log(this.product.saleId);
-    this.productHttpService.getSales(1).subscribe(response => {
+    this.productHttpService.getSales(this.product.saleId).subscribe(response => {
       this.sales = response;
       console.log(this.sales);
     });
