@@ -32,6 +32,8 @@ import { SharedService } from './services/shared.service';
 import { KeysPipe } from './pipes/keys.pipe';
 import { ProductService } from './product/product.service';
 import { ActivatedRoute } from '@angular/router';
+import { RealHomeComponent } from './real-home/real-home.component';
+import { HeaderComponent } from './header/header.component';
 
 
 
@@ -46,7 +48,9 @@ import { ActivatedRoute } from '@angular/router';
     ProductCompareComponent,
     ProductFilterComponent,
     ProductListComponent,
-    KeysPipe
+    KeysPipe,
+    RealHomeComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
