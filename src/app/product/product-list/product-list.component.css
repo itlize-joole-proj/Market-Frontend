@@ -2,8 +2,8 @@
     text-align: center;
 }
 
-img {
-  height: 150px;
+.product-img {
+  width: 50%;
 }
 
 .techs {
@@ -12,4 +12,10 @@ img {
 
 .caption {
   padding: 0px;
+}
+.card-title {
+  margin-bottom: 3px;
+}
+.align-center {
+  margin-bottom: 3px;
 }

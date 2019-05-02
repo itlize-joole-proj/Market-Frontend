@@ -13,9 +13,9 @@ const routes: Routes = [
 
   { path: '', redirectTo: 'home', pathMatch: 'full', canActivate: [AuthGuard] },
 
-  { path: 'products', component: ProductComponent, canActivate: [AuthGuard]  },
+  { path: 'subCate/:subCateId/products', component: ProductComponent, canActivate: [AuthGuard]  },
   { path: 'products/:id', component: ProductDetailComponent },
-  { path: 'compare', component:  ProductCompareComponent, canActivate: [AuthGuard] },
+  { path: 'compare/:subCateId', component:  ProductCompareComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'home', component: RealHomeComponent, canActivate: [AuthGuard] },

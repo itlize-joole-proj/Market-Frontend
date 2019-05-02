@@ -5,6 +5,7 @@ import {Location} from '@angular/common';
 import {Product} from 'src/app/models/product.model';
 import {Manufacture} from 'src/app/models/manufacture.model';
 import {Sale} from 'src/app/models/sale.model';
+import {SharedService} from '../../services/shared.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -21,17 +22,19 @@ export class ProductDetailComponent implements OnInit {
 
   product: Product;
   subCateId: string;
+  subCateName: string;
   attributes: any = {};
 
   tech_spec_title: any[] = [];
 
   constructor(private productHttpService: ProductHttpService,
-              // private sharedService: SharedService,
+              private sharedService: SharedService,
               private route: ActivatedRoute,
               private location: Location) {
   }
 
   ngOnInit() {
+    this.sharedService.subCateName$.subscribe(name => this.subCateName = name);
     this.getProduct();
   }
 

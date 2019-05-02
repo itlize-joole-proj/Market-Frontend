@@ -1,7 +1,12 @@
 
 
 <app-header></app-header>
-
+<ol class="breadcrumb">
+    <li>Mechanical</li>
+    <li>{{subCateName}}</li>
+    <li>{{product.description.split('/')[2]}}</li>
+  </ol>
+<h3>{{product.description}}</h3>
 <div class="info-menu-block">
   <!-- <label class="info-meu"><a href='{{"/products/" + product.productID + "/#part1"}}'>Product Summary</a></label> -->
   <label class="info-meu"><a>Product Summary</a></label>
@@ -75,13 +80,6 @@
         <td>{{ product.detailsArray[0] }}</td>
       </tr>
       <tr>
-        <th scope="row" class="row-title">Operating vlotage (VAC)</th>
-        <th scope="row" class="sub-row-title">Min</th>
-        <td>{{ product.detailsArray[0] }}</td>
-        <th scope="row" class="sub-row-title">Max</th>
-        <td>{{ product.detailsArray[0] }}</td>
-      </tr>
-      <tr>
         <th scope="row" class="row-title">Fan speed (RPM)</th>
         <th scope="row" class="sub-row-title">Min</th>
         <td>{{ product.detailsArray[0] }}</td>
@@ -118,7 +116,9 @@
       <th>SERIES INFORMATION</th>
     </tr>
       <tr>
-        <td>{{ product.details }}</td>
+        <div *ngIf="product">
+          <td>{{ product.details }}</td>
+        </div>
       </tr>
   </tbody>
 </table>
@@ -130,7 +130,9 @@
       <th>Documentation</th>
     </tr>
       <tr>
-        <td>{{ product.documentUrl }}</td>
+        <div *ngIf="product">
+          <td>{{ product.documentUrl }}</td>
+        </div>
       </tr>
   </tbody>
 </table>
