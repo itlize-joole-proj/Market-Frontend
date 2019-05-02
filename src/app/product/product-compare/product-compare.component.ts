@@ -3,6 +3,8 @@ import { ProductService } from '../product.service';
 import { ProductHttpService } from '../../services/product-http.service';
 import { Attribute } from 'src/app/models/attribute.model';
 import { SharedService } from '../../services/shared.service';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -19,13 +21,16 @@ export class ProductCompareComponent implements OnInit {
 
   constructor(private productService: ProductService,
               private productHttpService: ProductHttpService,
-              private sharedService: SharedService) { 
+              private sharedService: SharedService,
+              private activedRoute: ActivatedRoute) { 
   }
 
   ngOnInit() {
-    this.sharedService.subCate$.subscribe(
-      item => { this.subId = item.toString(); console.log(this.subId);}
-    );
+    this.activedRoute.params.pipe(map(item => item.subCateId))
+    .subscribe(id => {this.subId = id; console.log(this.subId)});
+    // this.sharedService.subCate$.subscribe(
+    //   item => { this.subId = item.toString(); console.log(this.subId);}
+    // );
     this.productService.compares$.subscribe(
       item => {
         this.productsToCompare = item;
@@ -33,7 +38,7 @@ export class ProductCompareComponent implements OnInit {
       }
     );
     console.log("constructor");
-    
+
     this.productHttpService.getFilterAttributeDetails(this.subId).subscribe(
       data =>{ 
         this.attributes = data.filter(item => item.isRange > 0)
