@@ -1,21 +1,17 @@
 #search {
-    width: 70%;
-    height: 100%;
-    margin-top: 10px;
-    margin-left: 70px;
-    display: inline-flex;
-    justify-content: center;
-    float: left;
+  width: 70%;
+  height: 100%;
+  margin-top: 10px;
+  margin-left: 70px;
+  display: inline-flex;
+  justify-content: center;
+  float: left;
 }
 
-/* #bs-example-navbar-collapse-1 {
-    width: 80%;
-} */
 .header {
-    width: 10%;
+  width: 10%;
 }
-
-/* img {
-    width: 10%;
-    height: 15%;
-} */
+.container-fluid {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
