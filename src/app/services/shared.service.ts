@@ -7,7 +7,7 @@ import { Subject, BehaviorSubject } from "rxjs";
 @Injectable()
 export class SharedService implements OnInit {
 
-  // curCateAttributeDetail: any;
+  curProductAttribute: any;
 
   constructor() {}
   ngOnInit() {}
@@ -19,11 +19,11 @@ export class SharedService implements OnInit {
     this.subCateSource.next(subCateId);
   }
 
-  // setCurentSubCateTech(attributeDetail: any) {
-  //   this.curCateAttributeDetail = attributeDetail;
-  // }
+  setCurentSubCateTech(attributeDetail: any) {
+    this.curProductAttribute = attributeDetail;
+  }
 
-  // getCurentSubCateTech():any {
-  //   return this.curCateAttributeDetail;
-  // }
+  getCurentSubCateTech():any {
+    return this.curProductAttribute;
+  }
 }

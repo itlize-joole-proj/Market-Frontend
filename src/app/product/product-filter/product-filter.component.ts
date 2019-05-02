@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
 import { ProductHttpService } from 'src/app/services/product-http.service';
 import { AttributeType } from 'src/app/models/attributeType.model';
 import { Attribute } from 'src/app/models/attribute.model';
@@ -13,7 +13,8 @@ import { SharedService } from 'src/app/services/shared.service';
 @Component({
   selector: 'app-product-filter',
   templateUrl: './product-filter.component.html',
-  styleUrls: ['./product-filter.component.css']
+  styleUrls: ['./product-filter.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProductFilterComponent implements OnInit {
 
