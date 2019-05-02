@@ -75,13 +75,6 @@
         <td>{{ product.detailsArray[0] }}</td>
       </tr>
       <tr>
-        <th scope="row" class="row-title">Operating vlotage (VAC)</th>
-        <th scope="row" class="sub-row-title">Min</th>
-        <td>{{ product.detailsArray[0] }}</td>
-        <th scope="row" class="sub-row-title">Max</th>
-        <td>{{ product.detailsArray[0] }}</td>
-      </tr>
-      <tr>
         <th scope="row" class="row-title">Fan speed (RPM)</th>
         <th scope="row" class="sub-row-title">Min</th>
         <td>{{ product.detailsArray[0] }}</td>
@@ -118,7 +111,9 @@
       <th>SERIES INFORMATION</th>
     </tr>
       <tr>
-        <td>{{ product.details }}</td>
+        <div *ngIf="product">
+          <td>{{ product.details }}</td>
+        </div>
       </tr>
   </tbody>
 </table>
@@ -130,7 +125,9 @@
       <th>Documentation</th>
     </tr>
       <tr>
-        <td>{{ product.documentUrl }}</td>
+        <div *ngIf="product">
+          <td>{{ product.documentUrl }}</td>
+        </div>
       </tr>
   </tbody>
 </table>
