@@ -5,3 +5,11 @@
 img {
   height: 150px;
 }
+
+.techs {
+  background-color: #eee;
+}
+
+.caption {
+  padding: 0px;
+}

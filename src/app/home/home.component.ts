@@ -15,7 +15,7 @@ import {AuthenticationService} from '../services/authentication.service';
 })
 export class HomeComponent implements OnInit {
 
-  private cates: string[] = ['Mechanical'];
+  private cates: string[] = ['Mechanical', 'Electrical'];
   private subCates: SubCategory[];
   private selected;
   subCatesForm: FormGroup;
@@ -29,9 +29,7 @@ export class HomeComponent implements OnInit {
   }
 
   // added by Wei
-  logout() {
-    this.authenticationService.logout();
-  }
+  
 
   ngOnInit() {
     this.createForm();

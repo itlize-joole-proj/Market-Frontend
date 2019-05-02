@@ -1,0 +1,16 @@
+.search-bar {
+    /* position: absolute;
+    top: 50%; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100%;
+    background: linear-gradient(to bottom, lightskyblue, white) fixed;
+}
+
+img {
+    width: 20%;
+    height: 20%;
+}
+

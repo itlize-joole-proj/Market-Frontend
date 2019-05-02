@@ -1,4 +1,4 @@
-#form {
+/* #form {
     display: inline-block;
     height: 100%;
 }
@@ -6,19 +6,20 @@
 .input {
     float: left;
     height: 100%;
-}
+} */
 
-#container {
+/* #container {
     display: flex;
     justify-content: center;
-}
+} */
+
 
 /*Wei*/
-nav{
+/* nav{
   position: absolute;
   right: 10px;
   top: 10px;
-}
+} */
 
 #product_detail{
   position: absolute;
