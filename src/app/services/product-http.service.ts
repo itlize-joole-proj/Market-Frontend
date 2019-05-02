@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, pipe} from 'rxjs';
 import { AttributeType } from '../models/attributeType.model';
 
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, filter } from 'rxjs/operators';
 import { Attribute } from '../models/attribute.model';
 
 import { Product } from '../models/product.model';
@@ -14,6 +14,8 @@ import { Product } from '../models/product.model';
 
 
 import {baseUrl, setting} from '../services/environment';
+import { Sale } from '../models/sale.model';
+import { Manufacture } from '../models/manufacture.model';
 
 const url = 'http://localhost:8080/MarketApp';
 
@@ -46,7 +48,7 @@ export class ProductHttpService implements OnInit {
   getFilterAttributeDetails(subCateId: string): Observable<Attribute[]> {
     const category_url = `${url}/filter/${subCateId}`;
 
-    // console.log(category_url);
+    console.log(category_url);
     return this.httpService.get<Attribute[]>(category_url)
       .pipe(
         // tap(res => this.log('' + res)),
@@ -62,16 +64,7 @@ export class ProductHttpService implements OnInit {
     let options = {
       headers: httpHeaders
     };
-    
-    console.log(filterData);
-    return this.httpService.post<any>(product_filter_url, JSON.stringify(filterData), options)
-      .pipe(
-        tap(res => this.log('Get Data: ' + res)),
-        catchError(this.handleError<Product[]>('Error in get products of filter', []))
-      );
-
     // console.log(filterData);
-
     return this.httpService.post<Product[]>(product_filter_url, filterData, options)
       .pipe(
         tap(res => this.log('Get Data: ' + res)),
@@ -105,62 +98,23 @@ export class ProductHttpService implements OnInit {
       .pipe(map(res => res.map(item => new Product(item))));
   }
 
+  // return one product or null as array
+  getProductsOfSubCate(subCateId: string): Observable<Product[]> {
+    return this.httpService.get<Product[]>(`${url}/subcate/${subCateId}/products`)
+          .pipe();
+  }
+
   getProductById(productID: number): Observable<Product> {
     const product_url = `${url}/products/${productID}`;
     return this.httpService.get<Product>(product_url)
             .pipe(catchError(this.handleError<Product>('Error in getting product by id')));
   }
 
-  // Wei
-  getProductSummary(productID: number) {
-
-    // // let productSummary;
-    // this.httpService.get(baseUrl + `/products/${productID}`, {responseType: 'json'}).subscribe(response => {
-    //   this.data = response;
-    //   const productSummary = JSON.stringify(response);
-    //   console.log(productSummary);
-    //   return productSummary;
-    // });
-
-    // return oberservable
-    return this.httpService.get(baseUrl + `/products/${productID}`);
+  getSales(salesID: number): Observable<Sale> {
+    return this.httpService.get<Sale>(baseUrl + `/sale/${salesID}`);
   }
 
-
-  // getProductSummary2(productID: number) {
-  //   return new Promise(resolve => {
-  //     this.httpService.get(baseUrl + `/products/${productID}`)
-  //       .map(results => results.json())
-  //       .subscribe(data => {
-  //         this.data = data;
-  //         resolve(this.data);
-  //       })
-  //       .then(data => console.log(data));
-  //   });
-  // }
-
-  getSales(salesID: number) {
-    return this.httpService.get(baseUrl + `/sale/${salesID}`);
+  getManufacturer(manufacturerID: number): Observable<Manufacture> {
+    return this.httpService.get<Manufacture>(baseUrl + `/manufacturer/${manufacturerID}`);
   }
-
-  getManufacturer(manufacturerID: number) {
-    return this.httpService.get(baseUrl + `/manufacturer/${manufacturerID}`);
-  }
-
-  // getSubCate(cateName: string): Observable<SubCategory[]>{
-
-  //   return this.http.get<SubCategory[]>('http://localhost:8080/MarketApp' + `/Category/${cateName}/SubCates`)
-  //   // .pipe(map(res => res.map((item) => new SubCategory(
-  //   //     item.SubCategoryName,
-  //   //     item.SubCategoryID,
-  //   //     item.CategoryID
-  //   // ))));
-  //   // .pipe(map(res => res.map(item => new SubCategory(
-  //   //     item.SubCategoryName,
-  //   //      item.SubCategoryID,
-  //   //      item.CategoryID
-  //   // ))));
-  //   .pipe(map(res => res.map(item => new SubCategory(item))));
-
-
 }
