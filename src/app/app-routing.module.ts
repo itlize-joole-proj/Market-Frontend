@@ -7,6 +7,7 @@ import {ProductCompareComponent} from './product/product-compare/product-compare
 import {SignupComponent} from './signup/signup.component';
 import {HomeComponent} from './home/home.component';
 import {AuthGuard} from './guards/AuthGuard';
+import { RealHomeComponent } from './real-home/real-home.component';
 
 const routes: Routes = [
 
@@ -17,7 +18,7 @@ const routes: Routes = [
   { path: 'compare', component:  ProductCompareComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'home', component: RealHomeComponent, canActivate: [AuthGuard] },
   { path: 'productDetail', component: ProductDetailComponent, canActivate: [AuthGuard] }, // Wei
   { path: '**', redirectTo: '', canActivate: [AuthGuard] }
 
