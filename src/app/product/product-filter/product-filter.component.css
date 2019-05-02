@@ -29,3 +29,7 @@ ng5-slider {
 input[type=number] {
   width: 50px;
 }
+
+.custom-slider .ng5-slider .ng5-slider-selection {
+  background: rgb(255, 255, 0) !important;
+}

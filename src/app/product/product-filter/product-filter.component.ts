@@ -3,12 +3,11 @@ import { ProductHttpService } from 'src/app/services/product-http.service';
 import { AttributeType } from 'src/app/models/attributeType.model';
 import { Attribute } from 'src/app/models/attribute.model';
 
-import { FormBuilder } from '@angular/forms';
 import { DOCUMENT } from '@angular/common';
 
 import { Filter } from 'src/app/models/filter.model';
 import { ProductService } from '../product.service';
-import { SharedService } from 'src/app/services/shared.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-filter',
@@ -26,8 +25,8 @@ export class ProductFilterComponent implements OnInit {
   subId = '1';
 
   constructor(private productService: ProductHttpService,
-              // private sharedService: SharedService,
               private productS: ProductService,
+              private router: Router,
               @Inject(DOCUMENT) document) { }
   // test: Filter = new Filter(10, 20);
   ngOnInit() {
@@ -44,7 +43,7 @@ export class ProductFilterComponent implements OnInit {
         const rightId = 'right-' + element.attributeName;
         const leftVal = <HTMLInputElement>document.getElementById(leftId);
         const rightVal = <HTMLInputElement>document.getElementById(rightId);
-        if (leftVal !== null && rightVal != null) {
+        if (leftVal !== null && rightVal !== null) {
           const temp = {};
           temp["min"] = Number(leftVal.value);
           temp["max"] = Number(rightVal.value);
@@ -56,6 +55,22 @@ export class ProductFilterComponent implements OnInit {
     // save filter data into localStorage, easy for sibling get the data
     // localStorage.setItem("filter", JSON.stringify(this.filterData));
     this.getProductsOfFilter(this.filterData);
+  }
+
+  onFilterClear() {
+    this.productService.getFilterAttributeDetails(this.subId).subscribe(
+      data => {
+        this.attributeDetails = data;
+        if (this.attributeDetails !== null && this.attributeDetails !== undefined) {
+          this.rangeFilterList = this.attributeDetails.filter(data=>data.isRange === 1);
+          this.attributeDetails.forEach(
+            data=>{data['rangeSlider']=new Filter(data.minValue, data.maxValue)}
+          );
+        }
+      },
+      err => {console.log("Clear Button " + err)},
+      () => {this.getFilterAttributes();}
+    );
   }
 
   getProductsOfFilter(filterData: any) {
@@ -86,7 +101,7 @@ export class ProductFilterComponent implements OnInit {
         });
       },
       err => {},
-      // () => console.log(this.filter),
+      () => console.log(this.filter),
     );
   }
 

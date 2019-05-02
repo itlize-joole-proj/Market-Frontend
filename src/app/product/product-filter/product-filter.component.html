@@ -1,5 +1,6 @@
 
   <button type="submit" class="btn btn-primary" (click)="onFilterSubmit($event)">Save</button>
+  <button type="submit" class="btn btn-primary" (click)="onFilterClear()">Clear</button>
 
     <!-- <input id='left' type="number" [(ngModel)]="test.minValue">
     <input id ='right' type="number" [(ngModel)]="test.maxValue">
@@ -20,7 +21,9 @@
             <div class="form-inline" *ngIf="attr && attr.isRange === 1">
               <label class="form-group">{{attr.attributeName}}</label><br>
               <input id='{{"left-" + attr.attributeName}}' type="number" [(ngModel)]="attr.rangeSlider.minValue">
+              <div class="custom-slider">
               <ng5-slider [(value)]="attr.rangeSlider.minValue" [(highValue)]="attr.rangeSlider.maxValue" [options]="attr.rangeSlider.options"></ng5-slider>
+            </div>
               <input id='{{"right-" + attr.attributeName}}' type="number" [(ngModel)]="attr.rangeSlider.maxValue">
             </div>
           </div>
