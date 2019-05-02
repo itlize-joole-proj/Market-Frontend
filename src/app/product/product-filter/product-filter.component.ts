@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Inject, ViewEncapsulation, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ProductHttpService } from 'src/app/services/product-http.service';
 import { AttributeType } from 'src/app/models/attributeType.model';
 import { Attribute } from 'src/app/models/attribute.model';
@@ -15,14 +15,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-filter.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class ProductFilterComponent implements OnInit {
+export class ProductFilterComponent implements OnInit, OnChanges {
+
+
 
   attributes: AttributeType[];
   attributeDetails: Attribute[];
   filter = {};
   rangeFilterList;
   filterData = {};
-  subId = '1';
+  @Input('subid') subId;
 
   constructor(private productService: ProductHttpService,
               private productS: ProductService,
@@ -30,8 +32,12 @@ export class ProductFilterComponent implements OnInit {
               @Inject(DOCUMENT) document) { }
   // test: Filter = new Filter(10, 20);
   ngOnInit() {
-    this.getAttributeDetails();
+    // this.getAttributeDetails();
     // this.getFilterAttributes();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.getAttributeDetails();
   }
 
   onFilterSubmit() {

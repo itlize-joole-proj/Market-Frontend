@@ -1,7 +1,12 @@
 
 
 <app-header></app-header>
-
+<ol class="breadcrumb">
+    <li>Mechanical</li>
+    <li>{{subCateName}}</li>
+    <li>{{product.description.split('/')[2]}}</li>
+  </ol>
+<h3>{{product.description}}</h3>
 <div class="info-menu-block">
   <!-- <label class="info-meu"><a href='{{"/products/" + product.productID + "/#part1"}}'>Product Summary</a></label> -->
   <label class="info-meu"><a>Product Summary</a></label>

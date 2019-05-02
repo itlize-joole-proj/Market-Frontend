@@ -19,6 +19,7 @@ export class ProductComponent implements OnInit {
 
   subCateId: number;
   products: Product[];
+  subCateName: string;
 
   constructor(private sharedService: SharedService,
               private http: HttpClient,
@@ -28,6 +29,8 @@ export class ProductComponent implements OnInit {
               }
 
   ngOnInit() {
+    this.sharedService.subCateName$.subscribe(name => this.subCateName = name);
+    
     this.activedRoute.params.pipe(map(data => data.subCateId))
     .subscribe(id => {
       this.subCateId = id;

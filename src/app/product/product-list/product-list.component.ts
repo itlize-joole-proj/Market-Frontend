@@ -14,6 +14,7 @@ import { Router } from "@angular/router";
 export class ProductListComponent implements OnInit {
   private products: any;
   private productsToCompare: any = [];
+  subCateName: string;
   @Input('subid') subCateId: number;
 
   constructor(
@@ -25,6 +26,7 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.sharedService.subCateName$.subscribe(name => this.subCateName = name);
     this.productService.products$.subscribe(item => {
       this.products = item;
       // console.log(item);

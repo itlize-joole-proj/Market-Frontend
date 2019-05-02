@@ -13,10 +13,18 @@ export class SharedService implements OnInit {
   ngOnInit() {}
 
   private subCateSource = new BehaviorSubject<number>(0);
-  subCate$ = this.subCateSource.asObservable();
+  private subCateNameSource = new BehaviorSubject<string>('');
 
+  subCate$ = this.subCateSource.asObservable();
+  subCateName$ = this.subCateNameSource.asObservable();
+
+  //may not be used anymore
   searchProduct(subCateId) {
     this.subCateSource.next(subCateId);
+  }
+
+  emitSubCateName(name) {
+    this.subCateNameSource.next(name);
   }
 
   setCurentSubCateTech(attributeDetail: any) {
