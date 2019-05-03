@@ -1,12 +1,10 @@
-
-
 <app-header></app-header>
 <ol class="breadcrumb">
     <li>Mechanical</li>
-    <li>{{subCateName}}</li>
-    <li>{{product.description.split('/')[2]}}</li>
+    <li><div class="list-path" *ngIf="subCateName">{{subCateName}}</div></li>
+    <li><div class="list-path" *ngIf="product">{{product.description.split('/')[2]}}</div></li>
   </ol>
-<h3>{{product.description}}</h3>
+<h3><div *ngIf="product">{{product.description}}</div></h3>
 <div class="info-menu-block">
   <!-- <label class="info-meu"><a href='{{"/products/" + product.productID + "/#part1"}}'>Product Summary</a></label> -->
   <label class="info-meu"><a>Product Summary</a></label>
@@ -62,7 +60,7 @@
 </div>
 
 
-<div *ngIf="product && manufacturer">
+<div *ngIf="product && manufacturer && attributes">
   <table class="table table-borderless part1">
     <tbody>
       <tr>
@@ -70,40 +68,38 @@
       </tr>
       <tr>
         <th scope="row" class="row-title">Airflow (CFM)</th>
-        <td>{{ product.detailsArray[0] }}</td>
+        <td>{{ attributes['Airflow.CFM'] }}</td>
       </tr>
       <tr>
         <th scope="row" class="row-title">Power (W)</th>
         <th scope="row" class="sub-row-title">Min</th>
-        <td>{{ product.detailsArray[0] }}</td>
+        <td>0</td>
         <th scope="row" class="sub-row-title">Max</th>
-        <td>{{ product.detailsArray[0] }}</td>
+        <td>{{ attributes['Power.W'] }}</td>
       </tr>
       <tr>
         <th scope="row" class="row-title">Fan speed (RPM)</th>
         <th scope="row" class="sub-row-title">Min</th>
-        <td>{{ product.detailsArray[0] }}</td>
+        <td>NaN</td>
         <th scope="row" class="sub-row-title">Max</th>
-        <td>{{ product.detailsArray[0] }}</td>
+        <td>NaN</td>
       </tr>
       <tr>
         <th scope="row" class="row-title">Number of fan speeds</th>
-        <td>{{ product.detailsArray[0] }}</td>
+        <td>NaN</td>
       </tr>
       <tr>
         <th scope="row" class="row-title">Sound at max speed (dBA)</th>
-        <td>{{ product.detailsArray[0] }}</td>
+        <td>{{ attributes['Sound_at_max_speed.dBA'] }}</td>
       </tr>
       <tr>
         <th scope="row" class="row-title">Height (in)</th>
-        <th scope="row" class="sub-row-title">Min</th>
-        <td>{{ product.detailsArray[0] }}</td>
         <th scope="row" class="sub-row-title">Max</th>
-        <td>{{ product.detailsArray[0] }}</td>
+        <td>{{ attributes['Height.in'] }}</td>
       </tr>
       <tr>
         <th scope="row" class="row-title">Weight (lbs)</th>
-        <td>13</td>
+        <td>NaN</td>
       </tr>
     </tbody>
   </table>
