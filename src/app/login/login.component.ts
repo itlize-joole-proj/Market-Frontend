@@ -6,6 +6,7 @@ import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AlertService } from '../services/alert.service';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
 
   constructor(private userHttpService: AuthenticationService,
-
+              private alertService: AlertService,
               private formBuilder: FormBuilder,
               private activatedRoute: ActivatedRoute,
               private router: Router) { }
@@ -76,6 +77,7 @@ export class LoginComponent implements OnInit {
         },
         error => {
           console.log(error);
+          this.alertService.error(error);
           this.processing = false;
           this.enableForm();
         }

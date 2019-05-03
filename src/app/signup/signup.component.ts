@@ -7,6 +7,8 @@ import {MustMatch} from './mustMatch.service';
 import {HttpClient} from '@angular/common/http';
 import {AuthenticationService} from '../services/authentication.service';
 import {first} from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-signup',
@@ -19,7 +21,11 @@ export class SignupComponent implements OnInit {
   private registerForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private userHttpService: AuthenticationService) {
+  constructor(private formBuilder: FormBuilder, 
+    private http: HttpClient, 
+    private userHttpService: AuthenticationService,
+    private router: Router,
+    private alertService: AlertService) {
   }
 
   ngOnInit() {
@@ -60,7 +66,15 @@ export class SignupComponent implements OnInit {
       this.f().password.value,
       this.f().email.value,
       this.f().firstname.value,
-      this.f().lastname.value).pipe(first()).subscribe();
+      this.f().lastname.value).pipe(first()).subscribe(
+        data => {
+          this.alertService.success('Registration successful', true);
+          this.router.navigate(['/login']);
+      },
+      error => {
+          console.log(error);
+          this.alertService.error(error);
+      });
   }
 }
 
