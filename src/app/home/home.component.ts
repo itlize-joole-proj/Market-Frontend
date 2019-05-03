@@ -15,7 +15,7 @@ import {AuthenticationService} from '../services/authentication.service';
 })
 export class HomeComponent implements OnInit {
 
-  private cates: string[] = ['Mechanical', 'Electrical'];
+  private cates: string[] = ['Mechanical'];
   private subCates: SubCategory[];
   private selected;
   subCatesForm: FormGroup;

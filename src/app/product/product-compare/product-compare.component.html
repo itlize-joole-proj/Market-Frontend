@@ -11,17 +11,17 @@
     <th *ngFor="let product of productsToCompare" class="img-center"><img src="https://media.mitre10.com.au/media/catalog/product/cache/1/small_image/250x250/9df78eab33525d08d6e5fb8d27136e95/C/W/CWF121.jpg"></th>
   </tr>
   <tr>
-    <td>Description</td>
+    <td><strong>Description</strong></td>
   </tr>
   <tr *ngFor="let attr of descriptions">
     <td>{{attr}}</td>
     <td *ngFor="let product of productsToCompare" class="content">{{product[attr]}}</td>
   </tr>
   <tr>
-    <td>Technical Specifications</td>
+    <td><strong>Technical Specifications</strong></td>
   </tr>
   <tr *ngFor="let attr of attributes">
-    <td >{{attr}}</td>
+    <td >{{attr | parenthes}}</td>
     <td *ngFor="let product of productsToCompare" class="content">{{product.attributes[attr]}}</td>
   </tr>
   <!-- <tr>
