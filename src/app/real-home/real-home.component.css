@@ -14,3 +14,7 @@ img {
     height: 20%;
 }
 
+#logout{
+  position: absolute;
+  right: 10px;
+}
