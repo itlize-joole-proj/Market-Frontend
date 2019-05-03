@@ -15,7 +15,7 @@
 
                   <h5 class="card-title align-center" *ngFor="let s of product.description.split('/')">{{s}}</h5>
                   <div class="techs">
-                  <p class="align-center" *ngFor="let attr of product.attributes | keys">{{attr}}: {{product.attributes[attr]}}</p>
+                  <p class="align-center" *ngFor="let attr of product.attributes | keys">{{attr | parenthes}}: {{product.attributes[attr]}}</p>
                   </div>
                   <input type="checkbox" (change)="handleCheckbox($event, product)"> Compare
               </div>

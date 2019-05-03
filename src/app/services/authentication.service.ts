@@ -41,7 +41,7 @@ export class AuthenticationService implements OnInit {
     const options = {
       headers: httpHeaders
     };
-    return this.http.post<Buyer>('http://localhost:8080/MarketApp/login', JSON.stringify(buyer), options)
+    return this.http.post<any>('http://localhost:8080/MarketApp/login', JSON.stringify(buyer), options)
       .pipe(map(user => {
         // login successful if there's a jwt token in the response
         console.log(user)
