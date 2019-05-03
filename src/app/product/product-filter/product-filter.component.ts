@@ -103,7 +103,7 @@ export class ProductFilterComponent implements OnInit, OnChanges {
           if (this.attributeDetails !== undefined) {
             this.filter[element.attributeTypeName] =
                       this.attributeDetails.filter(data=>data.attributeTypeId===element.attributeTypeID);
-          }
+                    }
         });
       },
       err => {},

@@ -65,15 +65,11 @@ export class LoginComponent implements OnInit {
     }
     this.processing = true;
     this.disableForm();
-
     this.userHttpService.login(this.f().username.value, this.f().password.value)
       .pipe(first())
       .subscribe(
         data => {
-          // console.log(data);
-          console.log(localStorage.getItem('currentUser'));
-          console.log(this.router.navigate([this.returnUrl]));
-          this.router.navigateByUrl(this.returnUrl);
+          this.router.navigate([this.returnUrl]);
         },
         error => {
           console.log(error);

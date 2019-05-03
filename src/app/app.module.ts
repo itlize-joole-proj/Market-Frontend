@@ -29,7 +29,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SubCateHttpService } from './services/subCate-http.service';
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { SharedService } from './services/shared.service';
-import { KeysPipe } from './pipes/keys.pipe';
+import { KeysPipe, ParenthesPipe } from './pipes/keys.pipe';
 import { ProductService } from './product/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { RealHomeComponent } from './real-home/real-home.component';
@@ -51,6 +51,7 @@ import { AlertService } from './services/alert.service';
     ProductFilterComponent,
     ProductListComponent,
     KeysPipe,
+    ParenthesPipe,
     RealHomeComponent,
     HeaderComponent,
     AlertComponent
@@ -64,7 +65,7 @@ import { AlertService } from './services/alert.service';
     FormsModule
   ],
 
-  providers: [ProductHttpService, AuthenticationService, AuthGuard, NgModule,
+  providers: [ProductHttpService, AuthenticationService, AuthGuard, NgModule, AlertService,
 
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

@@ -11,13 +11,11 @@ import {catchError} from 'rxjs/operators';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
+
   constructor(private authenticationService: AuthenticationService) {
   }
 
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError(err => {
         if (err.status === 401) {
@@ -28,7 +26,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         }
 
         const error = err.error.message || err.statusText;
-        return throwError(error);
+        return throwError("Login fail...." + error);
       })
     );
   }

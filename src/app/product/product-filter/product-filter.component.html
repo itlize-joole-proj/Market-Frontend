@@ -15,7 +15,7 @@
       <div *ngIf="filter && attributes">
         <div *ngFor="let attr of filter[attrType.attributeTypeName]; let i = index">
           <div class="form-inline" *ngIf="attr && attr.isRange === 1">
-            <label class="form-group">{{attr.attributeName}}</label><br>
+            <label class="form-group">{{attr.attributeName | parenthes}}</label><br>
             <input id='{{"left-" + attr.attributeName}}' type="number" [(ngModel)]="attr.rangeSlider.minValue">
             <div class="custom-slider">
               <ng5-slider [(value)]="attr.rangeSlider.minValue" [(highValue)]="attr.rangeSlider.maxValue" [options]="attr.rangeSlider.options"></ng5-slider>

@@ -6,3 +6,10 @@ export class KeysPipe implements PipeTransform {
         return Object.keys(value);
     }
 }
+
+@Pipe({name: 'parenthes', pure: false})
+export class ParenthesPipe implements PipeTransform {
+  transform(value: string, args: any[] = null): any {
+    return value.replace('.', '(') + ')';
+  }
+}

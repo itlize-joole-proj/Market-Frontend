@@ -1,15 +1,26 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {Observable, of, BehaviorSubject} from 'rxjs';
 
 import {catchError, map, tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
+import { Buyer } from '../models/buyer.model';
 
 const url = 'http://localhost:8080/MarketApp';
 
 @Injectable()
 export class AuthenticationService implements OnInit {
+
+  private currentUserSubject: BehaviorSubject<Buyer>;
+  public currentUser: Observable<Buyer>;
+
   constructor(private http: HttpClient, private router: Router) {
+    this.currentUserSubject = new BehaviorSubject<Buyer>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
+
+  public get currentUserValue(): Buyer {
+    return this.currentUserSubject.value;
   }
 
   ngOnInit() {
@@ -30,13 +41,16 @@ export class AuthenticationService implements OnInit {
     const options = {
       headers: httpHeaders
     };
-    return this.http.post<any>('http://localhost:8080/MarketApp/login', JSON.stringify(buyer), options)
+    return this.http.post<Buyer>('http://localhost:8080/MarketApp/login', JSON.stringify(buyer), options)
       .pipe(map(user => {
         // login successful if there's a jwt token in the response
+        console.log(user)
         if (user && user.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user));
+          this.currentUserSubject.next(user);
         }
+        catchError(this.handleError<any>('login', []));
         return user;
       }));
   }
@@ -71,18 +85,10 @@ export class AuthenticationService implements OnInit {
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
     // added by Wei
     this.router.navigateByUrl('login');
   }
-
-  getTest(): void {
-    this.http
-      .get('http://localhost:8080/MarketApp/products/1')
-      .subscribe(data => {
-        console.log(data);
-      });
-  }
-
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

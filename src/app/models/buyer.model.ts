@@ -6,4 +6,5 @@ export class Buyer {
     message: string;
     username: string;
     password: string;
+    token: string;
 }
