@@ -4,10 +4,12 @@
 </nav>
 
 <div class="loginForm">
-
+  <img class="img-responsive" src="assets/Picture1.png">
+  <p class="lead">Building Product Selection Platform</p>
   <app-alert></app-alert>
   <h2>Login</h2>
   <form [formGroup]="loginForm" (submit)="onSubmit()">
+
     <div class="form-group">
       <!-- <label for="username">Username</label> -->
       <input name="username" formControlName="username" type="username" class="form-control" id="username"
