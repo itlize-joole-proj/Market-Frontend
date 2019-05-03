@@ -69,7 +69,8 @@ import { AlertService } from './services/alert.service';
 
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-             SubCateHttpService, SharedService,KeysPipe, ProductService
+             SubCateHttpService, SharedService,KeysPipe, ProductService,
+             AlertService
 
   ],
   bootstrap: [AppComponent]

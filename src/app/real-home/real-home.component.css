@@ -14,3 +14,10 @@ img {
   width: 20%;
   height: 20%;
 }
+
+
+#logout{
+  position: absolute;
+  right: 10px;
+}
+
