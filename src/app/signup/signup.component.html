@@ -4,9 +4,11 @@
 <nav>
   <a id="login" routerLink="/login">Login</a>
 </nav>
+
   <div class="container">
       <div class="col-md-6 offset-md-3">
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <app-alert></app-alert>
           <div class="form-group">
             <label>Username</label>
             <input type="text" formControlName="username" class="form-control"

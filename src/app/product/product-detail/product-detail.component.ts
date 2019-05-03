@@ -67,7 +67,7 @@ export class ProductDetailComponent implements OnInit {
             // this.saleId = String(data.saleId);
             this.subCateId = String(data.subCategoryID);
             this.fetchData(String(data.saleId));
-            this.fetchManufacturerData(String(data.subCategoryID));
+            this.fetchManufacturerData(String(data.manufacturerId));
             this.getTechTitle(this.subCateId);
             // this.sharedService.setCurentSubCateTech(this.product.attributes);
             this.product.detailsArray = data.description.split('/');
